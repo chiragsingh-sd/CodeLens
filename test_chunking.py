@@ -7,9 +7,6 @@ from backend.indexer.chunker import (
 )
 
 
-# IMPORTANT:
-# Replace this with an ACTUAL repo folder
-# inside tmp/repos/
 repo_path = "./tmp/repos/30a2f204"
 
 
@@ -19,7 +16,6 @@ def main():
     print("CODELENS AST CHUNKING TEST")
     print("==============================\n")
 
-    # STEP 1 — Collect Python files
     python_files = get_python_files(
         local_path=repo_path,
         max_files=200,
@@ -31,7 +27,6 @@ def main():
         print("[ERROR] No Python files found.")
         return
 
-    # STEP 2 — Inspect one file deeply
     test_file = python_files[0]
 
     print("\n==============================")
@@ -51,7 +46,6 @@ def main():
         print("[ERROR] No chunks extracted.")
         return
 
-    # Show first 2 chunks
     for i, chunk in enumerate(file_chunks[:2], start=1):
 
         print("\n------------------------------")
@@ -66,7 +60,6 @@ def main():
 
         print("\n==============================")
 
-    # STEP 3 — Chunk entire repo
     print("\n==============================")
     print("TESTING WHOLE REPOSITORY")
     print("==============================\n")
@@ -78,7 +71,6 @@ def main():
 
     print(f"[INFO] Total chunks created: {len(all_chunks)}")
 
-    # Stats
     function_chunks = sum(
         1
         for c in all_chunks

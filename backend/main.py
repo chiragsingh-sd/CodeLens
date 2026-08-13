@@ -19,11 +19,10 @@ from backend.agents.responder import generate_answer
 
 from backend.agents.report_generator import generate_report
 
-#FRONTEND-----
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
-import shutil    # add this line near the top with the other imports
+import shutil
 
 
 app = FastAPI(title="CodeLens", version="1.0")
@@ -43,29 +42,21 @@ async def health():
     return {"status": "ok"}
 
 
-# ── Request model ──────────────────────────────────────────────
 class RepoSubmit(BaseModel):
     url: str
 
 
-# ── Background task — the real work ───────────────────────────
 async def run_indexing(repo_id: str, url: str):
     from backend.indexer.embedder import embed_chunks
 
     local_path = None
 
     try:
-        # Get the running event loop BEFORE entering threads
         loop = asyncio.get_running_loop()
 
-        # Mark repo as indexing immediately
         await update_repo_status(repo_id, "indexing")
 
         print(f"[indexer] started: {repo_id}")
-
-        # ─────────────────────────────────────────────
-        # STEP 1 — CLONE REPOSITORY
-        # ─────────────────────────────────────────────
 
         print(f"[indexer] cloning...")
 
@@ -76,10 +67,6 @@ async def run_indexing(repo_id: str, url: str):
         )
 
         print(f"[indexer] cloned")
-
-        # ─────────────────────────────────────────────
-        # STEP 2 — FIND PYTHON FILES
-        # ─────────────────────────────────────────────
 
         python_files = await asyncio.to_thread(
             get_python_files,
@@ -99,17 +86,12 @@ async def run_indexing(repo_id: str, url: str):
 
             return
 
-        # Initial indexing state
         await update_repo_status(
             repo_id,
             "indexing",
             file_count=len(python_files),
             chunk_count=0
         )
-
-        # ─────────────────────────────────────────────
-        # STEP 3 — CHUNK REPOSITORY
-        # ─────────────────────────────────────────────
 
         print(f"[indexer] chunking...")
 
@@ -131,10 +113,6 @@ async def run_indexing(repo_id: str, url: str):
 
             return
 
-        # ─────────────────────────────────────────────
-        # STEP 4 — LIVE EMBEDDING PROGRESS
-        # ─────────────────────────────────────────────
-
         def on_progress(current: int, total: int, file_path: str):
 
             future = asyncio.run_coroutine_threadsafe(
@@ -147,7 +125,6 @@ async def run_indexing(repo_id: str, url: str):
                 loop
             )
 
-            # Prevent SQLite write pileups
             future.result()
 
         print(f"[indexer] embedding {len(chunks)} chunks...")
@@ -162,11 +139,6 @@ async def run_indexing(repo_id: str, url: str):
 
         print(f"[indexer] embedding done: {stored} stored")
 
-        # ─────────────────────────────────────────────
-        # STEP 5 — FINALIZE
-        # ─────────────────────────────────────────────
-
-        # Force one final indexing update
         await update_repo_status(
             repo_id,
             "indexing",
@@ -174,10 +146,8 @@ async def run_indexing(repo_id: str, url: str):
             chunk_count=stored
         )
 
-        # Give frontend polling time to see 100%
         await asyncio.sleep(1)
 
-        # Mark repo ready
         await update_repo_status(
             repo_id,
             "ready",
@@ -201,7 +171,6 @@ async def run_indexing(repo_id: str, url: str):
             error_msg=str(e)
         )
 
-        # Cleanup partially cloned repo
         if local_path and os.path.exists(local_path):
 
             await asyncio.to_thread(
@@ -209,22 +178,16 @@ async def run_indexing(repo_id: str, url: str):
                 local_path,
                 True
             )
-# ── API routes ─────────────────────────────────────────────────
 
 @app.post("/api/repos/", status_code=202)
 async def submit_repo(body: RepoSubmit, background_tasks: BackgroundTasks):
-    # Validate the URL
     try:
         owner, name = parse_github_url(body.url)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    # Create the DB record
     repo = await create_repo(body.url, owner, name)
 
-    # Schedule indexing to run after this function returns
-    # background_tasks.add_task adds the function to a queue
-    # FastAPI runs it after sending the response to the client
     background_tasks.add_task(run_indexing, repo["id"], body.url)
 
     return {
@@ -267,7 +230,6 @@ async def get_repo_files(repo_id: str):
 
     for root, dirs, files in os.walk(repo_path):
 
-        # Skip hidden + git dirs
         dirs[:] = [
             d for d in dirs
             if not d.startswith('.')
@@ -277,7 +239,6 @@ async def get_repo_files(repo_id: str):
 
         for file in files:
 
-            # Skip binaries and junk
             if file.endswith((
                 ".pyc",
                 ".png",
@@ -313,9 +274,6 @@ async def delete_repo(repo_id: str):
     if not repo:
         raise HTTPException(status_code=404, detail="Repo not found")
 
-    # Step 1: Delete cloned files from disk
-    # asyncio.to_thread because shutil.rmtree is blocking
-    # ignore_errors=True so locked .git files on Windows don't crash it
     try:
         local_path = os.path.join(settings.repo_storage_path, repo_id)
         if os.path.exists(local_path):
@@ -327,18 +285,13 @@ async def delete_repo(repo_id: str):
         print(f"[delete] removed files: {local_path}")
     except Exception as e:
         print(f"[delete] file deletion warning: {e}")
-        # don't crash — continue with the other cleanup steps
 
-    # Step 2: Delete ChromaDB collection
     try:
         delete_collection(repo_id)
         print(f"[delete] removed vector store for {repo_id}")
     except Exception as e:
         print(f"[delete] vector store warning: {e}")
-        # don't crash
 
-    # Step 3: Remove from SQLite
-    # This was missing before — repo was staying in the database after deletion
     try:
         await delete_repo_db(repo_id)
         print(f"[delete] removed db record for {repo_id}")
@@ -346,7 +299,6 @@ async def delete_repo(repo_id: str):
         print(f"[delete] db warning: {e}")
 
     return {"message": "Repo deleted"}
-#ANALYZING, RETRIEVEING AND RESPONDING TO USER QUERIES--------------- 
  
 class ChatRequest(BaseModel):
     repo_id: str
@@ -383,10 +335,6 @@ async def chat(body: ChatRequest):
             body.repo_id
         )
 
-        # ─────────────────────────────────────────
-        # Review mode validation
-        # ─────────────────────────────────────────
-
         if body.mode == "review" and body.target_file:
 
             full_path = os.path.join(
@@ -401,10 +349,6 @@ async def chat(body: ChatRequest):
                     detail=f"Target file not found: {body.target_file}"
                 )
 
-        # ─────────────────────────────────────────
-        # STEP 1 — analyze query
-        # ─────────────────────────────────────────
-
         print("[STEP] analyze_query")
 
         analyzed = analyze_query(
@@ -414,10 +358,6 @@ async def chat(body: ChatRequest):
         )
 
         print("[OK] analyze_query")
-
-        # ─────────────────────────────────────────
-        # STEP 2 — retrieve chunks
-        # ─────────────────────────────────────────
 
         print("[STEP] retrieve_context")
 
@@ -430,10 +370,6 @@ async def chat(body: ChatRequest):
         )
 
         print("[OK] retrieve_context")
-
-        # ─────────────────────────────────────────
-        # STEP 3 — generate answer
-        # ─────────────────────────────────────────
 
         print("[STEP] generate_answer")
 
@@ -469,7 +405,6 @@ async def chat(body: ChatRequest):
             status_code=500,
             detail=str(e)
         )
-#Report generation ------------------------------
 class ReportRequest(BaseModel):
     repo_id: str
 
@@ -486,7 +421,6 @@ async def generate_repo_report(body: ReportRequest):
         body.repo_id
     )
 
-    # Architecture-oriented retrieval
     analysis = analyze_query(
         user_query="repository architecture overview",
         mode="report",
@@ -508,7 +442,6 @@ async def generate_repo_report(body: ReportRequest):
         "repo": repo["name"],
         "report": report,
     }
-#FRONTEND ROUTES------------------------------
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 @app.get("/")

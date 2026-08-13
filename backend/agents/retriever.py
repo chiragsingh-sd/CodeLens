@@ -17,10 +17,6 @@ def retrieve_context(
 
     total_start = time.time()
 
-    # ─────────────────────────────────────────────
-    # Hybrid retrieval timing
-    # ─────────────────────────────────────────────
-
     retrieval_start = time.time()
 
     chunks = hybrid_search(
@@ -33,10 +29,6 @@ def retrieve_context(
         f"[TIMING] hybrid_search: "
         f"{time.time() - retrieval_start:.2f}s"
     )
-
-    # ─────────────────────────────────────────────
-    # Review mode file read timing
-    # ─────────────────────────────────────────────
 
     if mode == "review" and target_file:
 
@@ -61,10 +53,6 @@ def retrieve_context(
             },
             "score": 1.0,
         })
-
-    # ─────────────────────────────────────────────
-    # Final timing
-    # ─────────────────────────────────────────────
 
     print(f"[retriever] chunks={len(chunks)}")
 

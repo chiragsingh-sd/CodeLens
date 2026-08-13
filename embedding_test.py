@@ -7,7 +7,6 @@ from backend.core.vector_store import get_collection
 repo_path = './tmp/repos/30a2f204'
 repo_id = 'test001'
 
-# Get files and chunk them
 print("Script STARTED")
 python_files = get_python_files(repo_path, max_files=200)
 print(f'Files: {len(python_files)}')
@@ -15,14 +14,12 @@ print(f'Files: {len(python_files)}')
 chunks = chunk_repo(python_files, repo_path)
 print(f'Chunks: {len(chunks)}')
 
-# Embed them (this takes 30-60 seconds first time — model downloads)
 def progress(current, total, file):
     print(f'  {current}/{total} — {file}')
 
 stored = embed_chunks(repo_id, chunks, progress_callback=progress)
 print(f'Stored {stored} chunks in ChromaDB')
 
-# Now search!
 print("Files EXtracted")
 from sentence_transformers import SentenceTransformer
 model = SentenceTransformer('all-MiniLM-L6-v2')

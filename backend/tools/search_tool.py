@@ -6,18 +6,8 @@ from sentence_transformers import SentenceTransformer
 from backend.core.vector_store import get_collection
 
 
-# ============================================================
-# EMBEDDING MODEL
-# ============================================================
-
-# Loaded once globally.
-# Python module caching prevents repeated loads.
 _embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 
-
-# ============================================================
-# TOKENIZER
-# ============================================================
 
 def tokenize(text: str) -> list[str]:
     """
@@ -33,8 +23,6 @@ def tokenize(text: str) -> list[str]:
 
     text = text.lower()
 
-    # Split on anything NOT:
-    # letters, digits, underscore
     raw_tokens = re.split(r"[^a-zA-Z0-9_]+", text)
 
     tokens = []
@@ -44,10 +32,8 @@ def tokenize(text: str) -> list[str]:
         if not token:
             continue
 
-        # Original token
         tokens.append(token)
 
-        # Split snake_case further
         if "_" in token:
             parts = token.split("_")
 
@@ -57,10 +43,6 @@ def tokenize(text: str) -> list[str]:
 
     return tokens
 
-
-# ============================================================
-# HYBRID SEARCH
-# ============================================================
 
 def hybrid_search(repo_id: str, query: str, k: int = 4) -> list[dict]:
     """
@@ -81,10 +63,6 @@ def hybrid_search(repo_id: str, query: str, k: int = 4) -> list[dict]:
 
     collection = get_collection(repo_id)
 
-    # --------------------------------------------------------
-    # LOAD DOCUMENTS
-    # --------------------------------------------------------
-
     all_data = collection.get(
         limit=300,
         include=["documents", "metadatas"]
@@ -99,18 +77,7 @@ def hybrid_search(repo_id: str, query: str, k: int = 4) -> list[dict]:
 
     total_docs = len(all_ids)
 
-    # --------------------------------------------------------
-    # BUILD SEARCHABLE BM25 DOCUMENTS
-    # --------------------------------------------------------
-
-    # VERY IMPORTANT:
-    # We enrich searchable text with metadata.
-    #
-    # This dramatically improves:
-    # - function name retrieval
-    # - filename retrieval
-    # - API lookup
-    # - architecture questions
+    # BM25 sees symbols and paths as well as source text for exact identifier retrieval.
 
     searchable_docs = []
 
@@ -126,10 +93,6 @@ def hybrid_search(repo_id: str, query: str, k: int = 4) -> list[dict]:
 
         searchable_docs.append(enriched)
 
-    # --------------------------------------------------------
-    # BM25 SEARCH
-    # --------------------------------------------------------
-
     tokenized_docs = [
         tokenize(doc)
         for doc in searchable_docs
@@ -141,25 +104,18 @@ def hybrid_search(repo_id: str, query: str, k: int = 4) -> list[dict]:
 
     bm25_scores = bm25.get_scores(query_tokens)
 
-    # Sort indices by descending BM25 score
     bm25_ranking = sorted(
         range(total_docs),
         key=lambda i: bm25_scores[i],
         reverse=True
     )
 
-    # doc_id -> BM25 rank
     bm25_rank_map = {
         all_ids[idx]: rank
         for rank, idx in enumerate(bm25_ranking)
     }
 
-    # --------------------------------------------------------
-    # SEMANTIC VECTOR SEARCH
-    # --------------------------------------------------------
-
-    # Pull more semantic candidates than final k
-    # so RRF has more ranking diversity.
+    # Semantic retrieval captures meaning that exact token matching misses.
     n_semantic = min(k , total_docs)
 
     q_embedding = _embed_model.encode(
@@ -175,23 +131,16 @@ def hybrid_search(repo_id: str, query: str, k: int = 4) -> list[dict]:
 
     semantic_ids = semantic_results["ids"][0]
 
-    # doc_id -> semantic rank
     semantic_rank_map = {
         doc_id: rank
         for rank, doc_id in enumerate(semantic_ids)
     }
 
-    # --------------------------------------------------------
-    # RECIPROCAL RANK FUSION (RRF)
-    # --------------------------------------------------------
-
-    # Standard RRF constant.
-    # Smaller values make top ranks more important.
+    # RRF combines semantic and lexical rankings without requiring score calibration.
     K_RRF = 60
 
     rrf_scores = {}
 
-    # Semantic contribution
     for doc_id in semantic_ids:
 
         rank = semantic_rank_map[doc_id]
@@ -201,7 +150,6 @@ def hybrid_search(repo_id: str, query: str, k: int = 4) -> list[dict]:
             + (1.0 / (K_RRF + rank))
         )
 
-    # BM25 contribution
     for doc_id in all_ids:
 
         rank = bm25_rank_map.get(doc_id, total_docs)
@@ -210,10 +158,6 @@ def hybrid_search(repo_id: str, query: str, k: int = 4) -> list[dict]:
             rrf_scores.get(doc_id, 0.0)
             + (1.0 / (K_RRF + rank))
         )
-
-    # --------------------------------------------------------
-    # FINAL SORTING
-    # --------------------------------------------------------
 
     top_ids = sorted(
         rrf_scores,

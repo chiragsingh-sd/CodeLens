@@ -17,17 +17,9 @@ def analyze_query(
 
     query_lower = user_query.lower()
 
-    # --------------------------------------------------------
-    # BASE QUERY
-    # --------------------------------------------------------
-
     retrieval_parts = [user_query]
 
     detected_intents = []
-
-    # --------------------------------------------------------
-    # REPOSITORY INGESTION / INDEXING
-    # --------------------------------------------------------
 
     if any(word in query_lower for word in [
         "index",
@@ -56,10 +48,6 @@ def analyze_query(
 
         detected_intents.append("repo_indexing")
 
-    # --------------------------------------------------------
-    # SEARCH / RETRIEVAL
-    # --------------------------------------------------------
-
     if any(word in query_lower for word in [
         "search",
         "retrieve",
@@ -82,10 +70,6 @@ def analyze_query(
 
         detected_intents.append("retrieval")
 
-    # --------------------------------------------------------
-    # API / ROUTES
-    # --------------------------------------------------------
-
     if any(word in query_lower for word in [
         "api",
         "endpoint",
@@ -104,10 +88,6 @@ def analyze_query(
         )
 
         detected_intents.append("api")
-
-    # --------------------------------------------------------
-    # ARCHITECTURE QUESTIONS
-    # --------------------------------------------------------
 
     if any(word in query_lower for word in [
         "architecture",
@@ -129,10 +109,6 @@ def analyze_query(
         )
 
         detected_intents.append("architecture")
-
-    # --------------------------------------------------------
-    # DEBUGGING / ERRORS
-    # --------------------------------------------------------
 
     if any(word in query_lower for word in [
         "bug",
@@ -156,10 +132,6 @@ def analyze_query(
 
         detected_intents.append("debugging")
 
-    # --------------------------------------------------------
-    # REVIEW MODE
-    # --------------------------------------------------------
-
     if mode == "review" and target_file:
 
         file_name = os.path.basename(target_file)
@@ -174,10 +146,6 @@ def analyze_query(
 
         detected_intents.append("review")
 
-    # --------------------------------------------------------
-    # REPORT MODE
-    # --------------------------------------------------------
-
     if mode == "report":
 
         retrieval_parts.append(
@@ -191,10 +159,6 @@ def analyze_query(
         )
 
         detected_intents.append("report")
-
-    # --------------------------------------------------------
-    # FINAL QUERY
-    # --------------------------------------------------------
 
     retrieval_query = "\n".join(retrieval_parts)
 

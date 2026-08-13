@@ -2,8 +2,7 @@ import chromadb
 from chromadb.config import Settings as ChromaSettings
 from backend.core.config import settings
 
-# Create ONE ChromaDB client for the whole application
-# PersistentClient means data is saved to disk, not lost when server restarts
+# Reuse one persistent client so collections survive process restarts.
 _chroma_client = chromadb.PersistentClient(
     path=settings.chroma_persist_path,
     settings=ChromaSettings(anonymized_telemetry=False)
@@ -16,8 +15,7 @@ def get_collection(repo_id: str):
     """
     return _chroma_client.get_or_create_collection(
         name=f"repo_{repo_id}",
-        # cosine distance: measures angle between vectors
-        # better than euclidean distance for text similarity
+        # Normalized text embeddings are compared in cosine space.
         metadata={"hnsw:space": "cosine"}
     )
 
@@ -26,4 +24,4 @@ def delete_collection(repo_id: str):
     try:
         _chroma_client.delete_collection(f"repo_{repo_id}")
     except Exception:
-        pass    # collection might not exist, that's fine
+        pass

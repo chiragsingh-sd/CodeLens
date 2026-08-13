@@ -1,6 +1,6 @@
 from backend.tools.search_tool import hybrid_search
 
-repo_id = "f653b5ed"   # your real indexed repo
+repo_id = "f653b5ed"
 
 tests = [
     ("SEMANTIC QUERY", "how does the critic safety check work"),

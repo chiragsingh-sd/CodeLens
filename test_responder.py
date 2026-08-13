@@ -11,10 +11,6 @@ repo_path = "./tmp/repos/f653b5ed"
 query = "how does repository indexing work"
 
 
-# ---------------------------------------------------
-# STEP 1 — ANALYZE QUERY
-# ---------------------------------------------------
-
 analysis = analyze_query(
     user_query=query,
     mode="chat"
@@ -27,10 +23,6 @@ print("=" * 60)
 
 print(analysis)
 
-
-# ---------------------------------------------------
-# STEP 2 — RETRIEVE CONTEXT
-# ---------------------------------------------------
 
 chunks = retrieve_context(
     repo_id=repo_id,
@@ -56,10 +48,6 @@ for i, chunk in enumerate(chunks[:5]):
     print()
     print(chunk["text"][:300])
 
-
-# ---------------------------------------------------
-# STEP 3 — GENERATE ANSWER
-# ---------------------------------------------------
 
 answer = generate_answer(
     user_query=query,

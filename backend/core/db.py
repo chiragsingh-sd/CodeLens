@@ -3,7 +3,6 @@ import uuid
 from datetime import datetime
 from backend.core.config import settings
 
-# This is the path to your SQLite file, from settings
 DB_PATH = settings.sqlite_db_path
 
 async def init_db():
@@ -44,8 +43,6 @@ async def create_repo(url: str, owner: str, name: str) -> dict:
             """INSERT INTO repos (id, url, owner, name, status, created_at)
                VALUES (?, ?, ?, ?, 'pending', ?)""",
             (repo_id, url, owner, name, created_at)
-            # The ? marks are placeholders — never build SQL with f-strings
-            # because that opens you to SQL injection attacks
         )
         await db.commit()
 
@@ -89,9 +86,6 @@ async def update_repo_status(
                    indexed_at = COALESCE(?, indexed_at)
                WHERE id = ?""",
             (status, file_count, chunk_count, error_msg, indexed_at, repo_id)
-            # COALESCE(?, existing) means: use the new value if it's not None,
-            # otherwise keep the existing value. This way you can update just
-            # one column without touching the others.
         )
         await db.commit()
 

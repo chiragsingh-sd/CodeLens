@@ -16,12 +16,8 @@ from backend.indexer.cloner import (
 
 from backend.core.config import settings
 
-# Create the FastAPI app
 app = FastAPI(title="CodeLens", version="1.0")
 
-# Make sure storage folders exist when the server starts
-# os.makedirs creates the folder AND all parent folders if they don't exist
-# exist_ok=True means "don't crash if the folder already exists"
 @app.on_event("startup")
 async def startup():
     os.makedirs(settings.repo_storage_path, exist_ok=True)
@@ -31,7 +27,6 @@ async def startup():
     print("CodeLens started.")
     print(f"Repos will be stored at: {settings.repo_storage_path}")
 
-# A test route so you can confirm the server is working
 @app.get("/health")
 async def health():
     return {"status": "ok", "message": "CodeLens is running"}

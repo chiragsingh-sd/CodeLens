@@ -1,53 +1,29 @@
-/* ═══════════════════════════════════════════════════════════════════
-   APP STATE
-   One object tracks everything the app needs to know.
-   No state scattered across random variables.
-════════════════════════════════════════════════════════════════════ */
 const State = {
-    currentScreen:   'landing',   // 'landing' | 'indexing' | 'chat'
-    repoId:          null,        // "a3f8c21d" — set after submission
-    repoName:        null,        // "biswaisop/Genos"
-    mode:            'chat',      // 'chat' | 'review' | 'report'
-    pollingInterval: null,        // holds the setInterval reference
-    chatHistory:     [],          // {role, content} pairs for display
-    selectedFile:    null,        // file chosen in review mode
+    currentScreen:   'landing',
+    repoId:          null,
+    repoName:        null,
+    mode:            'chat',
+    pollingInterval: null,
+    chatHistory:     [],
+    selectedFile:    null,
 };
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   SCREEN MANAGEMENT
-   One function to switch screens. Call this instead of toggling 
-   classes manually every time.
-════════════════════════════════════════════════════════════════════ */
 function showScreen(screenName) {
-    // Hide all screens
     document.getElementById('screen-landing').classList.add('hidden');
     document.getElementById('screen-indexing').classList.add('hidden');
     document.getElementById('screen-chat').classList.add('hidden');
 
-    // Show the requested one
     document.getElementById(`screen-${screenName}`).classList.remove('hidden');
 
     State.currentScreen = screenName;
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   API HELPERS
-   Thin wrappers around fetch(). Always handle errors.
-════════════════════════════════════════════════════════════════════ */
 
-// Base URL — in development this is localhost
-// In production, change to your Railway URL
-const API_BASE = '';   // empty string = same origin
+const API_BASE = '';
 
 async function apiPost(path, body) {
-    /*
-    Makes a POST request to your FastAPI backend.
-    
-    Returns: the parsed JSON response
-    Throws: an error with the API's error message if request fails
-    */
     const response = await fetch(`${API_BASE}${path}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -56,8 +32,6 @@ async function apiPost(path, body) {
 
     const data = await response.json();
 
-    // If the server returned an error status (4xx, 5xx), throw it
-    // so the calling code can catch it and show a message
     if (!response.ok) {
         throw new Error(data.detail || 'Request failed');
     }
@@ -66,10 +40,6 @@ async function apiPost(path, body) {
 }
 
 async function apiGet(path) {
-    /*
-    Makes a GET request to your FastAPI backend.
-    Same error handling as apiPost.
-    */
     const response = await fetch(`${API_BASE}${path}`);
     const data = await response.json();
 
@@ -79,7 +49,6 @@ async function apiGet(path) {
 
     return data;
 }
-//DELETING DATA------------
 
 async function apiDelete(path) {
     const response = await fetch(`${API_BASE}${path}`, {
@@ -93,16 +62,8 @@ async function apiDelete(path) {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   SCREEN 1: LANDING
-════════════════════════════════════════════════════════════════════ */
 
 function validateGithubUrl(url) {
-    /*
-    Returns true if url looks like a valid GitHub repo URL.
-    Doesn't need to be exact — just catch obvious mistakes before
-    sending to the server.
-    */
     const trimmed = url.trim();
     return trimmed.startsWith('https://github.com/') && 
            trimmed.split('/').length >= 5;
@@ -119,20 +80,10 @@ function hideUrlError() {
 }
 
 async function handleAnalyzeClick() {
-    /*
-    Called when the user clicks "Analyze".
-    
-    Flow:
-    1. Read and validate the URL
-    2. Call POST /api/repos/
-    3. If successful: save repo_id, switch to indexing screen
-    4. If failed: show error message
-    */
     const urlInput = document.getElementById('repo-url');
     const url      = urlInput.value.trim();
     const btn      = document.getElementById('analyze-btn');
 
-    // Validate first — don't even hit the API with garbage
     if (!url) {
         showUrlError('Please enter a GitHub repository URL.');
         return;
@@ -144,31 +95,26 @@ async function handleAnalyzeClick() {
 
     hideUrlError();
 
-    // Disable button so user can't submit twice
     btn.disabled = true;
     btn.textContent = 'Submitting...';
 
     try {
         const data = await apiPost('/api/repos/', { url });
 
-        // Save the repo ID — we need it for status polling and chat
         State.repoId   = data.repo_id;
         State.repoName = url.replace('https://github.com/', '');
 
-        // Switch to indexing screen and start polling
         showScreen('indexing');
         document.getElementById('indexing-repo-url').textContent = url;
         startPolling();
 
     } catch (error) {
-        // Show the error from the server
         showUrlError(error.message);
         btn.disabled = false;
         btn.textContent = 'Analyze';
     }
 }
 
-// Load previously analyzed repos when the landing screen shows
 async function loadPreviousRepos() {
     try {
         const data = await apiGet('/api/repos/');
@@ -180,7 +126,7 @@ async function loadPreviousRepos() {
         const list    = document.getElementById('previous-repos-list');
 
         section.classList.remove('hidden');
-        list.innerHTML = '';   // clear before re-rendering
+        list.innerHTML = '';
 
         repos.forEach(repo => {
             const card = document.createElement('div');
@@ -200,19 +146,16 @@ async function loadPreviousRepos() {
         >✕</button>
     </div>
             `;
-            // Clicking a previous repo goes straight to chat
            card.addEventListener('click', (e) => {
-    // Don't open if user clicked the delete button
     if (e.target.closest('.delete-repo-btn')) return;
     State.repoId   = repo.id;
     State.repoName = `${repo.owner}/${repo.name}`;
     openChatScreen(repo);
 });
 
-// Delete button
 const deleteBtn = card.querySelector('.delete-repo-btn');
 deleteBtn.addEventListener('click', async (e) => {
-    e.stopPropagation();   // prevent card click from firing
+    e.stopPropagation();
     const name = deleteBtn.dataset.repoName;
     if (!confirm(`Delete "${name}"?\n\nThis removes the index and cloned files.`)) return;
 
@@ -221,9 +164,8 @@ deleteBtn.addEventListener('click', async (e) => {
 
     try {
         await apiDelete(`/api/repos/${deleteBtn.dataset.repoId}`);
-        card.remove();   // remove from UI instantly
+        card.remove();
 
-        // Hide the section if no repos left
         if (list.querySelectorAll('.repo-card').length === 0) {
             section.classList.add('hidden');
         }
@@ -237,63 +179,40 @@ deleteBtn.addEventListener('click', async (e) => {
         });
 
     } catch (e) {
-        // No previous repos — that's fine, just don't show the section
     }
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   EVENT LISTENERS — Screen 1
-   Set up all the click handlers for the landing screen.
-════════════════════════════════════════════════════════════════════ */
 
 document.getElementById('analyze-btn')
         .addEventListener('click', handleAnalyzeClick);
 
-// Also submit when user presses Enter in the input
 document.getElementById('repo-url')
         .addEventListener('keydown', (e) => {
             if (e.key === 'Enter') handleAnalyzeClick();
         });
 
-// Clear error when user starts typing
 document.getElementById('repo-url')
         .addEventListener('input', hideUrlError);
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   INITIALIZE
-   Runs when the page first loads.
-════════════════════════════════════════════════════════════════════ */
 loadPreviousRepos();    
 
-/* ═══════════════════════════════════════════════════════════════════
-   SCREEN 2: INDEXING — POLLING
-════════════════════════════════════════════════════════════════════ */
 
 function startPolling() {
-    /*
-    Calls the status endpoint every 2 seconds.
-    Updates the progress bar and stats with each response.
-    Stops when status is "ready" or "failed".
-    */
 
-    // setInterval returns an ID — save it so we can stop it later
     State.pollingInterval = setInterval(async () => {
 
         try {
             const data = await apiGet(`/api/repos/${State.repoId}/status`);
             updateIndexingUI(data);
 
-            // Stop polling when done
            if (data.status === 'ready') {
     stopPolling();
-    updateIndexingUI(data);   // fills bar to 100%
+    updateIndexingUI(data);
 
-    // Short pause so user sees the bar hit 100% before the screen switches
     setTimeout(() => openChatScreen(data), 700);
 
-    // Fill progress bar completely before switching screens
     const progressBar =
         document.getElementById('progress-bar-fill');
 
@@ -317,44 +236,39 @@ function startPolling() {
     showIndexingError(error.message);
 }
 
-    }, 2000);   // 2000ms = 2 seconds between each call
+    }, 2000);
 }
 
 function stopPolling() {
     if (State.pollingInterval) {
-        clearInterval(State.pollingInterval);   // stops the setInterval
+        clearInterval(State.pollingInterval);
         State.pollingInterval = null;
     }
 }
 
     function updateIndexingUI(data) {
     const fillEl = document.getElementById('progress-bar-fill');
-    if (!fillEl) return;   // guard against destroyed DOM
+    if (!fillEl) return;
 
     const chunkCount = data.chunk_count || 0;
     const fileCount  = data.file_count  || 0;
     const status     = data.status;
 
-    // Calculate progress percentage
     let progress = 0;
     if (status === 'ready') {
         progress = 100;
     } else if (fileCount > 0 && chunkCount > 0) {
-        // Real progress: chunks done vs estimated total
-        // ~8 chunks per file is a reasonable estimate
+        // Progress is estimated because the final chunk total is unknown until embedding completes.
         const estimated = fileCount * 8;
         progress = Math.min(Math.round((chunkCount / estimated) * 100), 94);
     } else if (fileCount > 0) {
-        // Files found but embedding hasn't started — show 20% to show it's alive
         progress = 20;
     } else if (status === 'indexing') {
-        // Cloning in progress — show 5% so bar isn't dead
         progress = 5;
     }
 
     fillEl.style.width = `${progress}%`;
 
-    // Stats text
     const statsEl = document.getElementById('indexing-stats');
     if (statsEl) {
         if (status === 'ready') {
@@ -370,7 +284,6 @@ function stopPolling() {
         }
     }
 
-    // Title text
     const titleEl = document.getElementById('indexing-title');
     if (titleEl) {
         if (status === 'ready') {
@@ -387,19 +300,12 @@ function stopPolling() {
     }
 
     
-    // ─────────────────────────────────────────────
-    // DEBUG LOG
-    // ─────────────────────────────────────────────
 
     console.log('Polling update:', data);
 
 }
 
 function showIndexingError(message) {
-    /*
-    Replaces the indexing spinner with an error message.
-    Has a retry button that takes the user back to the landing screen.
-    */
    stopPolling();
 
     document.querySelector('.indexing-container').innerHTML = `
@@ -416,21 +322,14 @@ function showIndexingError(message) {
 }
 
 function goBackToLanding() {
-    // Reset state and go back
     State.repoId   = null;
     State.repoName = null;
     showScreen('landing');
-    loadPreviousRepos();   // refresh the previous repos list
+    loadPreviousRepos();
 }
-/* ═══════════════════════════════════════════════════════════════════
-   SCREEN 3: CHAT — SETUP
-════════════════════════════════════════════════════════════════════ */
 
 function openChatScreen(repoData) {
 
-    /*
-    Switches to the chat screen and populates the sidebar.
-    */
 
     stopPolling();
 
@@ -459,9 +358,6 @@ function openChatScreen(repoData) {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   CHAT STATE
-════════════════════════════════════════════════════════════════════ */
 
 if (!State.messages) {
     State.messages = [];
@@ -470,9 +366,6 @@ if (!State.messages) {
 State.isGenerating = false;
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   CHAT MESSAGES — rendering
-════════════════════════════════════════════════════════════════════ */
 
 function hideWelcomeMessage() {
 
@@ -521,10 +414,6 @@ function addUserMessage(text) {
 
 function addThinkingMessage() {
 
-    /*
-    Creates unique thinking message IDs.
-    Prevents collisions from multiple requests.
-    */
 
     const container = document.getElementById('chat-messages');
 
@@ -568,9 +457,6 @@ function addThinkingMessage() {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   SOURCE TAGS
-════════════════════════════════════════════════════════════════════ */
 
 function buildSourcesHtml(sources) {
 
@@ -607,9 +493,6 @@ function buildSourcesHtml(sources) {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   COPY BUTTONS FOR CODE BLOCKS
-════════════════════════════════════════════════════════════════════ */
 
 function attachCopyButtons(container) {
 
@@ -653,9 +536,6 @@ function attachCopyButtons(container) {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   ASSISTANT ANSWERS
-════════════════════════════════════════════════════════════════════ */
 
 function replaceThinkingWithAnswer(
     messageId,
@@ -670,12 +550,7 @@ function replaceThinkingWithAnswer(
         return;
     }
 
-    /*
-    DOMPurify REQUIRED.
-    Add this in index.html BEFORE app.js:
-
-    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.8/dist/purify.min.js"></script>
-    */
+    // Sanitize generated Markdown before inserting it into the DOM.
 
     const renderedAnswer = DOMPurify.sanitize(
         marked.parse(answer || 'No response.')
@@ -726,9 +601,6 @@ function replaceThinkingWithAnswer(
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   CHAT SCROLLING
-════════════════════════════════════════════════════════════════════ */
 
 function scrollToBottom() {
 
@@ -744,9 +616,6 @@ function scrollToBottom() {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   SECURITY
-════════════════════════════════════════════════════════════════════ */
 
 function escapeHtml(text) {
 
@@ -759,15 +628,9 @@ function escapeHtml(text) {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   SEND MESSAGE
-════════════════════════════════════════════════════════════════════ */
 
 async function sendMessage(queryText) {
 
-    /*
-    Prevent spam / overlapping requests.
-    */
 
     if (State.isGenerating) {
         return;
@@ -805,9 +668,6 @@ async function sendMessage(queryText) {
             mode:    State.mode || 'chat',
         };
 
-        /*
-        Review mode support
-        */
 
         if (
             State.mode === 'review' &&
@@ -881,25 +741,15 @@ async function sendMessage(queryText) {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   SOURCE PREVIEW PLACEHOLDER
-════════════════════════════════════════════════════════════════════ */
 
 function openSourcePreview(index) {
 
-    /*
-    Future feature:
-    open modal/sidebar with file preview.
-    */
 
     console.log('Open source preview:', index);
 
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   EVENT LISTENERS
-════════════════════════════════════════════════════════════════════ */
 
 const sendBtn = document.getElementById('send-btn');
 
@@ -917,9 +767,6 @@ const chatInput = document.getElementById('chat-input');
 
 if (chatInput) {
 
-    /*
-    Send on Enter
-    */
 
     chatInput.addEventListener(
         'keydown',
@@ -939,9 +786,6 @@ if (chatInput) {
         }
     );
 
-    /*
-    Auto-resize textarea
-    */
 
     chatInput.addEventListener(
         'input',
@@ -958,9 +802,6 @@ if (chatInput) {
 }
 
 
-/*
-Suggestion chips
-*/
 
 document
     .querySelectorAll('.suggestion-chip')
@@ -982,9 +823,6 @@ document
     });
 
 
-/*
-New repo button
-*/
 
 const newRepoBtn =
     document.getElementById('new-repo-btn');
@@ -1017,13 +855,7 @@ if (newRepoBtn) {
         });
 
 }
-/* ═══════════════════════════════════════════════════════════════════
-   MODE SWITCHING + REVIEW MODE + REPORT MODE
-   FINAL STABLE VERSION
-════════════════════════════════════════════════════════════════════ */
 
-// Add these to your global State object
-// (put near the top of app.js)
 
 State.mode            = 'chat';
 State.selectedFile    = null;
@@ -1031,18 +863,13 @@ State.cachedReport    = null;
 State.reportLoading   = false;
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   MODE SWITCHING
-════════════════════════════════════════════════════════════════════ */
 
 function setMode(newMode) {
 
-    // Prevent switching during report generation
     if (State.reportLoading) return;
 
     State.mode = newMode;
 
-    // Update active tab UI
     document.querySelectorAll('.mode-tab').forEach(tab => {
         tab.classList.toggle(
             'active',
@@ -1057,7 +884,6 @@ function setMode(newMode) {
     const reportControls =
     document.getElementById('report-controls');
 
-    // Reset visibility first
     if (filePickerSection) {
     filePickerSection.classList.add('hidden');
 }
@@ -1075,9 +901,6 @@ if (reportControls) {
 }
 
     
-    /* ─────────────────────────────────────────────
-       CHAT MODE
-    ───────────────────────────────────────────── */
 
     if (newMode === 'chat') {
 
@@ -1088,9 +911,6 @@ if (reportControls) {
 
     }
 
-    /* ─────────────────────────────────────────────
-       REVIEW MODE
-    ───────────────────────────────────────────── */
 
     else if (newMode === 'review') {
 
@@ -1101,16 +921,12 @@ if (reportControls) {
         input.placeholder =
             'Select a file above to review it...';
 
-        // Only load files if dropdown is empty
        
 
        loadFileList();
 
     }
 
-    /* ─────────────────────────────────────────────
-       REPORT MODE
-    ───────────────────────────────────────────── */
 
     else if (newMode === 'report') {
 
@@ -1123,9 +939,6 @@ if (reportControls) {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   FILE LIST LOADER
-════════════════════════════════════════════════════════════════════ */
 
 async function loadFileList() {
 
@@ -1170,9 +983,6 @@ async function loadFileList() {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   FILE PICKER EVENT
-════════════════════════════════════════════════════════════════════ */
 
 document.getElementById('file-picker')
     .addEventListener('change', function () {
@@ -1194,13 +1004,9 @@ document.getElementById('file-picker')
     });
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   REPORT MODE
-════════════════════════════════════════════════════════════════════ */
 
 async function generateReport() {
 
-    // Prevent duplicate report calls
     if (State.reportLoading) return;
 
     State.reportLoading = true;
@@ -1215,9 +1021,6 @@ async function generateReport() {
     .forEach(el => el.remove());
     
 
-    /* ─────────────────────────────────────────────
-       USE CACHED REPORT IF AVAILABLE
-    ───────────────────────────────────────────── */
 
     if (State.cachedReport) {
 
@@ -1230,9 +1033,6 @@ async function generateReport() {
         return;
     }
 
-    /* ─────────────────────────────────────────────
-       LOADING UI
-    ───────────────────────────────────────────── */
 
     const loadingDiv = document.createElement('div');
 
@@ -1272,9 +1072,6 @@ async function generateReport() {
 
     scrollToBottom();
 
-    /* ─────────────────────────────────────────────
-       API CALL
-    ───────────────────────────────────────────── */
 
     try {
 
@@ -1284,7 +1081,6 @@ async function generateReport() {
 
         document.getElementById('report-loading')?.remove();
 
-        // Cache the report
         State.cachedReport = data.report;
 
         renderReport(data.report);
@@ -1321,9 +1117,6 @@ async function generateReport() {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   REPORT RENDERER
-════════════════════════════════════════════════════════════════════ */
 
 function renderReport(reportMarkdown) {
 
@@ -1346,7 +1139,6 @@ function renderReport(reportMarkdown) {
 
     container.appendChild(reportDiv);
 
-    // Syntax highlighting
     reportDiv.querySelectorAll('pre code')
         .forEach(block => {
             hljs.highlightElement(block);
@@ -1356,9 +1148,6 @@ function renderReport(reportMarkdown) {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   UI LOCKING
-════════════════════════════════════════════════════════════════════ */
 
 function disableInteractiveUI() {
 
@@ -1385,17 +1174,11 @@ function enableInteractiveUI() {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   REPORT BUTTON EVENT
-════════════════════════════════════════════════════════════════════ */
 
 document.getElementById('generate-report-btn')
     ?.addEventListener('click', generateReport);
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   MODE TAB EVENTS
-════════════════════════════════════════════════════════════════════ */
 
 document.querySelectorAll('.mode-tab')
     .forEach(tab => {

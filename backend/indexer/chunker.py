@@ -23,7 +23,6 @@ def chunk_python_file(absolute_path: str, local_repo_path: str) -> list[dict]:
     """
     relative_path = get_relative_path(local_repo_path, absolute_path)
 
-    # Read the file content
     try:
         with open(absolute_path, "r", encoding="utf-8", errors="replace") as f:
             source = f.read()
@@ -33,12 +32,10 @@ def chunk_python_file(absolute_path: str, local_repo_path: str) -> list[dict]:
     if not source.strip():
         return []   # skip empty files
 
-    # Try to parse with AST
-    # If the file has syntax errors, ast.parse will raise SyntaxError
     try:
         tree = ast.parse(source)
     except SyntaxError:
-        # File has syntax errors — fall back to treating whole file as one chunk
+        # Preserve syntactically invalid files as searchable module-level context.
         return [{
             "text": source[:3000],
             "metadata": {
@@ -54,8 +51,7 @@ def chunk_python_file(absolute_path: str, local_repo_path: str) -> list[dict]:
     source_lines = source.splitlines()
     chunks = []
 
-    # ast.walk goes through every node in the syntax tree
-    # We only care about functions and classes at the top level
+    # Top-level symbols keep each retrieved chunk aligned with a file-level unit.
     for node in tree.body:
 
         is_function = isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
@@ -64,20 +60,16 @@ def chunk_python_file(absolute_path: str, local_repo_path: str) -> list[dict]:
         if not (is_function or is_class):
             continue    # skip everything else (imports, assignments, etc.)
 
-        # node.lineno is 1-indexed, list indexing is 0-indexed
         start = node.lineno - 1
         end   = node.end_lineno      # end_lineno is inclusive
 
-        # Extract just those lines from the source
         chunk_lines = source_lines[start:end]
         chunk_text  = "\n".join(chunk_lines)
 
-        # Skip tiny chunks (less than 3 lines — probably just a pass or docstring)
         if len(chunk_lines) < 3:
             continue
 
-        # Cap very long chunks — some classes are 500+ lines
-        # We want the first 1500 chars which covers most function logic
+        # Bound prompt/index size; large classes are represented by their prefix.
         if len(chunk_text) > 1500:
             chunk_text = chunk_text[:1500] + "\n# ... (truncated)"
 
@@ -93,8 +85,7 @@ def chunk_python_file(absolute_path: str, local_repo_path: str) -> list[dict]:
             }
         })
 
-    # If no functions/classes found (e.g., a script with only module-level code)
-    # treat the whole file as one chunk
+    # Module-level scripts still need a searchable representation.
     if not chunks:
         chunks.append({
             "text": source[:2000],

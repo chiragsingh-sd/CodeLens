@@ -51,10 +51,6 @@ def generate_answer(
 
     total_start = time.time()
 
-    # ─────────────────────────────────────────────
-    # Context formatting timing
-    # ─────────────────────────────────────────────
-
     format_start = time.time()
 
     context = format_context(retrieved_chunks)
@@ -64,10 +60,6 @@ def generate_answer(
         f"{time.time() - format_start:.2f}s"
     )
 
-    # ─────────────────────────────────────────────
-    # Prompt
-    # ─────────────────────────────────────────────
-
     user_prompt = f"""
 QUESTION:
 {user_query}
@@ -75,10 +67,6 @@ QUESTION:
 REPOSITORY CONTEXT:
 {context}
 """
-
-    # ─────────────────────────────────────────────
-    # LLM timing
-    # ─────────────────────────────────────────────
 
     llm_start = time.time()
 

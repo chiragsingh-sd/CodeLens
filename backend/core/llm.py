@@ -7,8 +7,7 @@ print(os.path.abspath(__file__))
 print("=" * 70)
 from backend.core.config import settings
 
-# NVIDIA's API is OpenAI-compatible — same SDK, different base_url and key
-# If NVIDIA key exists and has credits, use it. Otherwise fall back to Groq.
+# NVIDIA uses the OpenAI-compatible client; Groq is the fallback provider.
 USE_NVIDIA = settings.llm_provider.lower() == "nvidia"
 
 if USE_NVIDIA:
@@ -46,7 +45,6 @@ def call_llm(system_prompt: str, user_prompt: str, json_mode: bool = False) -> s
         return response.choices[0].message.content.strip()
 
     except Exception as e:
-        # If NVIDIA fails for any reason, fall back to Groq
         if USE_NVIDIA:
             print(f"[llm] NVIDIA failed ({e}), falling back to Groq")
             from groq import Groq

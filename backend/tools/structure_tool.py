@@ -18,13 +18,12 @@ def find_definition(local_repo_path: str, symbol_name: str) -> str:
             capture_output=True, text=True, timeout=10
         )
         if result.stdout.strip():
-            # Make paths relative so they're readable
             output = result.stdout.replace(local_repo_path + "/", "")
             return f"Definition(s) found:\n{output[:2000]}"
         return f"No definition found for '{symbol_name}' in Python files."
 
     except FileNotFoundError:
-        # grep not available (Windows) — use Python fallback
+        # Use a Python fallback when grep is unavailable on Windows.
         return _find_definition_python(local_repo_path, symbol_name)
     except Exception as e:
         return f"Error searching: {e}"
