@@ -1,3 +1,5 @@
+import time
+
 from backend.core.llm import call_llm
 
 
@@ -42,6 +44,7 @@ def generate_report(
     retrieved_chunks: list[dict],
 ) -> str:
 
+    prompt_start = time.perf_counter()
     context = format_context(retrieved_chunks)
 
     user_prompt = f"""
@@ -66,6 +69,8 @@ Report Structure:
 9. Scalability Observations
 10. Overall Technical Assessment
 """
+
+    print(f"[TIMING] report prompt: {time.perf_counter() - prompt_start:.2f}s")
 
     return call_llm(
         SYSTEM_PROMPT,

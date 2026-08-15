@@ -316,7 +316,7 @@ body {
     height: 100%;
     background: linear-gradient(90deg, var(--accent), var(--accent-hover));
     border-radius: 99px;
-    transition: width 0.4s ease;
+    transition: width 0.8s ease;
 }
 
 .indexing-stats {
@@ -716,4 +716,60 @@ body {
     background: rgba(252, 129, 129, 0.1);
     border-color: var(--danger);
     color: var(--danger);
+}
+
+@media (max-width: 700px) {
+    body {
+        overflow: auto;
+    }
+
+    .screen {
+        min-height: 100vh;
+        height: auto;
+    }
+
+    #screen-chat {
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .chat-area {
+        min-height: 60vh;
+    }
+
+    .chat-messages {
+        padding: 16px;
+    }
+
+    .chat-input-bar {
+        padding: 12px 16px;
+    }
+
+    .input-row {
+        flex-direction: column;
+    }
+
+    .input-row .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .suggestions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
 }

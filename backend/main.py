@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import os
 import re
 import asyncio
+import time
 import traceback
 
 from backend.core.config import settings
@@ -308,6 +309,7 @@ class ChatRequest(BaseModel):
 
 @app.post("/api/chat")
 async def chat(body: ChatRequest):
+    request_start = time.perf_counter()
 
     try:
 
@@ -359,9 +361,11 @@ async def chat(body: ChatRequest):
 
         print("[OK] analyze_query")
 
+        retrieval_start = time.perf_counter()
         print("[STEP] retrieve_context")
 
-        chunks = retrieve_context(
+        chunks = await asyncio.to_thread(
+            retrieve_context,
             repo_id=body.repo_id,
             repo_path=repo_path,
             retrieval_query=analyzed["retrieval_query"],
@@ -370,15 +374,20 @@ async def chat(body: ChatRequest):
         )
 
         print("[OK] retrieve_context")
+        print(f"[TIMING] chat retrieval: {time.perf_counter() - retrieval_start:.2f}s")
 
+        answer_start = time.perf_counter()
         print("[STEP] generate_answer")
 
-        answer = generate_answer(
+        answer = await asyncio.to_thread(
+            generate_answer,
             user_query=body.query,
             retrieved_chunks=chunks,
         )
 
         print("[OK] generate_answer")
+        print(f"[TIMING] chat answer: {time.perf_counter() - answer_start:.2f}s")
+        print(f"[TIMING] chat total: {time.perf_counter() - request_start:.2f}s")
 
         print("========== SUCCESS ==========\n")
 
@@ -392,6 +401,9 @@ async def chat(body: ChatRequest):
                 for c in chunks[:5]
             ]
         }
+
+    except HTTPException:
+        raise
 
     except Exception as e:
 
@@ -410,6 +422,7 @@ class ReportRequest(BaseModel):
 
 @app.post("/api/report")
 async def generate_repo_report(body: ReportRequest):
+    request_start = time.perf_counter()
 
     repo = await get_repo(body.repo_id)
 
@@ -426,17 +439,24 @@ async def generate_repo_report(body: ReportRequest):
         mode="report",
     )
 
-    chunks = retrieve_context(
+    retrieval_start = time.perf_counter()
+    chunks = await asyncio.to_thread(
+        retrieve_context,
         repo_id=body.repo_id,
         repo_path=repo_path,
         retrieval_query=analysis["retrieval_query"],
         mode="report",
     )
+    print(f"[TIMING] report retrieval: {time.perf_counter() - retrieval_start:.2f}s")
 
-    report = generate_report(
+    report_start = time.perf_counter()
+    report = await asyncio.to_thread(
+        generate_report,
         repo_name=repo["name"],
         retrieved_chunks=chunks,
     )
+    print(f"[TIMING] report LLM: {time.perf_counter() - report_start:.2f}s")
+    print(f"[TIMING] report total: {time.perf_counter() - request_start:.2f}s")
 
     return {
         "repo": repo["name"],

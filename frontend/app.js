@@ -4,8 +4,11 @@ const State = {
     repoName:        null,
     mode:            'chat',
     pollingInterval: null,
+    indexingStartedAt: null,
+    indexingCompletionTimer: null,
     chatHistory:     [],
     selectedFile:    null,
+    pendingFile:     null,
 };
 
 
@@ -103,6 +106,7 @@ async function handleAnalyzeClick() {
 
         State.repoId   = data.repo_id;
         State.repoName = url.replace('https://github.com/', '');
+        State.indexingStartedAt = Date.now();
 
         showScreen('indexing');
         document.getElementById('indexing-repo-url').textContent = url;
@@ -131,9 +135,10 @@ async function loadPreviousRepos() {
         repos.forEach(repo => {
             const card = document.createElement('div');
             card.className = 'repo-card';
+            const repoLabel = `${escapeHtml(repo.owner)}/${escapeHtml(repo.name)}`;
             card.innerHTML = `
                 <div>
-        <div class="repo-card-name">${repo.owner}/${repo.name}</div>
+        <div class="repo-card-name">${repoLabel}</div>
         <div class="repo-card-meta">${repo.chunk_count} chunks · ${repo.file_count} files</div>
     </div>
     <div style="display:flex; align-items:center; gap:8px;">
@@ -141,7 +146,7 @@ async function loadPreviousRepos() {
         <button 
             class="delete-repo-btn" 
             data-repo-id="${repo.id}"
-            data-repo-name="${repo.owner}/${repo.name}"
+            data-repo-name="${repoLabel}"
             title="Delete this repo"
         >✕</button>
     </div>
@@ -179,6 +184,7 @@ deleteBtn.addEventListener('click', async (e) => {
         });
 
     } catch (e) {
+        console.error('Could not load previous repositories:', e);
     }
 }
 
@@ -200,49 +206,67 @@ loadPreviousRepos();
 
 
 function startPolling() {
+    stopPolling();
+    updateIndexingUI({
+        status: 'indexing',
+        file_count: 0,
+        chunk_count: 0,
+    });
 
-    State.pollingInterval = setInterval(async () => {
+    const poll = async () => {
+        if (!State.repoId) return;
 
         try {
             const data = await apiGet(`/api/repos/${State.repoId}/status`);
             updateIndexingUI(data);
 
-           if (data.status === 'ready') {
+            if (data.status === 'ready') {
+                finishIndexing(data);
+                return;
+            }
+
+            if (data.status === 'failed') {
+                stopPolling();
+                showIndexingError(data.error_msg || 'Indexing failed.');
+                return;
+            }
+        } catch (error) {
+            console.error('Indexing status error:', error);
+            stopPolling();
+            showIndexingError(error.message);
+            return;
+        }
+
+        State.pollingInterval = setTimeout(poll, 1000);
+    };
+
+    poll();
+}
+
+function finishIndexing(data) {
     stopPolling();
     updateIndexingUI(data);
 
-    setTimeout(() => openChatScreen(data), 700);
+    const elapsed = State.indexingStartedAt
+        ? Date.now() - State.indexingStartedAt
+        : 0;
+    const minimumDisplayTime = 1400;
+    const delay = Math.max(800, minimumDisplayTime - elapsed);
 
-    const progressBar =
-        document.getElementById('progress-bar-fill');
-
-    if (progressBar) {
-        progressBar.style.width = '100%';
-    }
-
-    openChatScreen(data);
-
-} else if (data.status === 'failed') {
-                stopPolling();
-                showIndexingError(data.error_msg || 'Indexing failed.');
-            }
-
-        } catch (error) {
-
-    console.error(error);
-
-    stopPolling();
-
-    showIndexingError(error.message);
-}
-
-    }, 2000);
+    State.indexingCompletionTimer = setTimeout(() => {
+        openChatScreen(data);
+    }, delay);
 }
 
 function stopPolling() {
     if (State.pollingInterval) {
-        clearInterval(State.pollingInterval);
+        clearTimeout(State.pollingInterval);
         State.pollingInterval = null;
+    }
+
+    if (State.indexingCompletionTimer) {
+        clearTimeout(State.indexingCompletionTimer);
+        State.indexingCompletionTimer = null;
     }
 }
 
@@ -254,19 +278,26 @@ function stopPolling() {
     const fileCount  = data.file_count  || 0;
     const status     = data.status;
 
-    let progress = 0;
+    const elapsed = State.indexingStartedAt
+        ? Date.now() - State.indexingStartedAt
+        : 0;
+    const timeEstimate = Math.min(90, 10 + (elapsed / 1000) * 3);
+
+    let progress = timeEstimate;
     if (status === 'ready') {
         progress = 100;
     } else if (fileCount > 0 && chunkCount > 0) {
         // Progress is estimated because the final chunk total is unknown until embedding completes.
-        const estimated = fileCount * 8;
-        progress = Math.min(Math.round((chunkCount / estimated) * 100), 94);
+        const estimatedTotal = Math.max(fileCount * 8, chunkCount + 1);
+        const dataEstimate = 20 + (chunkCount / estimatedTotal) * 70;
+        progress = Math.min(90, Math.max(timeEstimate, dataEstimate));
     } else if (fileCount > 0) {
-        progress = 20;
+        progress = Math.max(timeEstimate, 20);
     } else if (status === 'indexing') {
-        progress = 5;
+        progress = Math.max(timeEstimate, 10);
     }
 
+    progress = Math.round(progress);
     fillEl.style.width = `${progress}%`;
 
     const statsEl = document.getElementById('indexing-stats');
@@ -274,11 +305,11 @@ function stopPolling() {
         if (status === 'ready') {
             statsEl.textContent = `${chunkCount} chunks indexed · ${fileCount} files`;
         } else if (chunkCount > 0) {
-            statsEl.textContent = `${chunkCount} chunks embedded · ${fileCount} files`;
+            statsEl.textContent = `${chunkCount} chunks embedded · ${fileCount} files (${progress}%)`;
         } else if (fileCount > 0) {
-            statsEl.textContent = `${fileCount} files found, embedding now...`;
+            statsEl.textContent = `${fileCount} files found, preparing embeddings... (${progress}%)`;
         } else if (status === 'indexing') {
-            statsEl.textContent = 'Cloning repository...';
+            statsEl.textContent = `Cloning repository... (${progress}%)`;
         } else {
             statsEl.textContent = 'Starting...';
         }
@@ -291,7 +322,7 @@ function stopPolling() {
         } else if (chunkCount > 0) {
             titleEl.textContent = 'Embedding code chunks...';
         } else if (fileCount > 0) {
-            titleEl.textContent = 'Starting embedding...';
+            titleEl.textContent = 'Preparing code chunks...';
         } else if (status === 'indexing') {
             titleEl.textContent = 'Cloning repository...';
         } else {
@@ -300,8 +331,6 @@ function stopPolling() {
     }
 
     
-
-    console.log('Polling update:', data);
 
 }
 
@@ -313,7 +342,7 @@ function showIndexingError(message) {
                     align-items:center; gap:16px;">
             <span style="font-size:32px;">⚠</span>
             <h2 style="color: var(--danger)">Indexing Failed</h2>
-            <p style="color: var(--text-secondary)">${message}</p>
+            <p style="color: var(--text-secondary)">${escapeHtml(message)}</p>
             <button class="btn btn-ghost" onclick="goBackToLanding()">
                 ← Try a different repo
             </button>
@@ -322,16 +351,36 @@ function showIndexingError(message) {
 }
 
 function goBackToLanding() {
+    stopPolling();
     State.repoId   = null;
     State.repoName = null;
+    State.indexingStartedAt = null;
+    State.cachedReport = null;
+    State.selectedFile = null;
+    State.pendingFile = null;
+    State.messages = [];
     showScreen('landing');
     loadPreviousRepos();
 }
 
 function openChatScreen(repoData) {
-
-
     stopPolling();
+
+    State.cachedReport = null;
+    State.reportLoading = false;
+    State.selectedFile = null;
+    State.pendingFile = null;
+    State.messages = [];
+
+    const messages = document.getElementById('chat-messages');
+    if (messages) {
+        messages.innerHTML = `
+            <div id="welcome-message" class="welcome-message">
+                <h2>Ready to explore</h2>
+                <p>Ask anything about this codebase, or pick a suggestion on the left.</p>
+            </div>
+        `;
+    }
 
     const repoNameEl  = document.getElementById('sidebar-repo-name');
     const repoStatsEl = document.getElementById('sidebar-repo-stats');
@@ -347,6 +396,7 @@ function openChatScreen(repoData) {
     }
 
     showScreen('chat');
+    setMode('chat');
 
     const input = document.getElementById('chat-input');
 
@@ -467,18 +517,21 @@ function buildSourcesHtml(sources) {
     const tags = sources
         .filter(s => s.file)
         .slice(0, 5)
-        .map((s, index) => {
+        .map(s => {
 
             const symbol = s.symbol
                 ? ` · ${escapeHtml(s.symbol)}`
                 : '';
+            const file = escapeHtml(s.file);
 
             return `
                 <button 
                     class="source-tag"
-                    onclick="openSourcePreview(${index})"
+                    type="button"
+                    onclick="openSourcePreview(this.dataset.sourceFile)"
+                    data-source-file="${file}"
                 >
-                    ${escapeHtml(s.file)}
+                    ${file}
                     ${symbol}
                 </button>
             `;
@@ -552,9 +605,7 @@ function replaceThinkingWithAnswer(
 
     // Sanitize generated Markdown before inserting it into the DOM.
 
-    const renderedAnswer = DOMPurify.sanitize(
-        marked.parse(answer || 'No response.')
-    );
+    const renderedAnswer = renderMarkdown(answer || 'No response.');
 
     const sourcesHtml = buildSourcesHtml(sources);
 
@@ -585,7 +636,7 @@ function replaceThinkingWithAnswer(
     `;
 
     thinkingEl.querySelectorAll('pre code').forEach(block => {
-        hljs.highlightElement(block);
+        if (window.hljs) hljs.highlightElement(block);
     });
 
     attachCopyButtons(thinkingEl);
@@ -623,8 +674,23 @@ function escapeHtml(text) {
 
     div.textContent = text;
 
-    return div.innerHTML;
+    return div.innerHTML
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 
+}
+
+function renderMarkdown(markdown) {
+    const source = String(markdown || '');
+
+    if (!window.marked) {
+        return `<p>${escapeHtml(source).replace(/\n/g, '<br>')}</p>`;
+    }
+
+    const rendered = marked.parse(source);
+    return window.DOMPurify
+        ? DOMPurify.sanitize(rendered)
+        : `<p>${escapeHtml(source).replace(/\n/g, '<br>')}</p>`;
 }
 
 
@@ -742,11 +808,9 @@ async function sendMessage(queryText) {
 
 
 
-function openSourcePreview(index) {
-
-
-    console.log('Open source preview:', index);
-
+function openSourcePreview(filePath) {
+    State.pendingFile = filePath;
+    setMode('review');
 }
 
 
@@ -971,6 +1035,13 @@ async function loadFileList() {
 
         });
 
+        if (State.pendingFile && files.includes(State.pendingFile)) {
+            select.value = State.pendingFile;
+            State.selectedFile = State.pendingFile;
+            State.pendingFile = null;
+            select.dispatchEvent(new Event('change'));
+        }
+
         select.disabled = false;
 
     } catch (error) {
@@ -1100,7 +1171,7 @@ async function generateReport() {
                 color: var(--danger);
             ">
                 Failed to generate report.<br><br>
-                ${error.message}
+                ${escapeHtml(error.message)}
             </div>
         `;
 
@@ -1133,7 +1204,7 @@ function renderReport(reportMarkdown) {
         </span>
 
         <div class="message-bubble report-bubble">
-            ${marked.parse(reportMarkdown)}
+            ${renderMarkdown(reportMarkdown)}
         </div>
     `;
 
@@ -1141,7 +1212,7 @@ function renderReport(reportMarkdown) {
 
     reportDiv.querySelectorAll('pre code')
         .forEach(block => {
-            hljs.highlightElement(block);
+            if (window.hljs) hljs.highlightElement(block);
         });
 
     scrollToBottom();
@@ -1154,10 +1225,10 @@ function disableInteractiveUI() {
     document.querySelectorAll('.mode-tab')
         .forEach(btn => btn.disabled = true);
 
-    const sendBtn = document.getElementById('send-btn');
+    const reportButton = document.getElementById('generate-report-btn');
 
-    if (sendBtn) {
-        sendBtn.disabled = true;
+    if (reportButton) {
+        reportButton.disabled = true;
     }
 }
 
@@ -1166,10 +1237,10 @@ function enableInteractiveUI() {
     document.querySelectorAll('.mode-tab')
         .forEach(btn => btn.disabled = false);
 
-    const sendBtn = document.getElementById('send-btn');
+    const reportButton = document.getElementById('generate-report-btn');
 
-    if (sendBtn) {
-        sendBtn.disabled = false;
+    if (reportButton) {
+        reportButton.disabled = false;
     }
 }
 

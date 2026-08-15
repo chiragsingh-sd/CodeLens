@@ -20,7 +20,9 @@ class Settings(BaseSettings):
     "/tmp/codelens/jobs.db"
 )
     max_files_per_repo: int = 200
-    groq_model: str = "llama-3.3-70b-versatile" 
+    groq_model: str = "openai/gpt-oss-120b"
+    llm_timeout_seconds: float = 45.0
+    llm_max_retries: int = 0
 
     class Config:
         env_file = ".env"
