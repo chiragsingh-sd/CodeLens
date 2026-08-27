@@ -60,11 +60,14 @@ Report Structure:
 
 1. Repository Purpose
 2. Core Architecture
+2.1. Architecture Diagram
 3. Main Components
 4. Retrieval / AI Systems
 5. Data Flow
+5.1.Data flow diagram
 6. Key Technologies
 7. Important Workflows
+7.1. Workflow diagrams
 8. Potential Weaknesses
 9. Scalability Observations
 10. Overall Technical Assessment
