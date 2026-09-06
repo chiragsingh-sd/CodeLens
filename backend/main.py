@@ -61,6 +61,7 @@ async def run_indexing(repo_id: str, url: str):
 
         print(f"[indexer] cloning...")
 
+
         local_path = await asyncio.to_thread(
             clone_repo,
             repo_id,
@@ -68,6 +69,21 @@ async def run_indexing(repo_id: str, url: str):
         )
 
         print(f"[indexer] cloned")
+
+        from backend.indexer.repo_map import build_repo_map, save_repo_map
+        from pathlib import Path
+
+        print(f"[indexer] building repo map...")
+        repo_map = await asyncio.to_thread(
+            build_repo_map,
+            Path(local_path),
+            repo_id
+        )
+        await asyncio.to_thread(
+            save_repo_map,
+            repo_map,
+            Path(settings.repo_storage_path)
+        )
 
         python_files = await asyncio.to_thread(
             get_python_files,
@@ -95,14 +111,11 @@ async def run_indexing(repo_id: str, url: str):
         )
 
         print(f"[indexer] chunking...")
-
         chunks = await asyncio.to_thread(
             chunk_repo,
             python_files,
             local_path
         )
-
-        print(f"[indexer] {len(chunks)} chunks extracted")
 
         if not chunks:
 
@@ -115,7 +128,6 @@ async def run_indexing(repo_id: str, url: str):
             return
 
         def on_progress(current: int, total: int, file_path: str):
-
             future = asyncio.run_coroutine_threadsafe(
                 update_repo_status(
                     repo_id,
