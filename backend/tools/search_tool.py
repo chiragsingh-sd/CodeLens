@@ -6,7 +6,14 @@ from sentence_transformers import SentenceTransformer
 from backend.core.vector_store import get_collection
 
 
-_embed_model = SentenceTransformer("all-MiniLM-L6-v2")
+_embed_model = None
+
+
+def _get_embed_model():
+    global _embed_model
+    if _embed_model is None:
+        _embed_model = SentenceTransformer("all-MiniLM-L6-v2")
+    return _embed_model
 
 
 def tokenize(text: str) -> list[str]:
@@ -64,7 +71,6 @@ def hybrid_search(repo_id: str, query: str, k: int = 4) -> list[dict]:
     collection = get_collection(repo_id)
 
     all_data = collection.get(
-        limit=300,
         include=["documents", "metadatas"]
     )
 
@@ -118,7 +124,7 @@ def hybrid_search(repo_id: str, query: str, k: int = 4) -> list[dict]:
     # Semantic retrieval captures meaning that exact token matching misses.
     n_semantic = min(k , total_docs)
 
-    q_embedding = _embed_model.encode(
+    q_embedding = _get_embed_model().encode(
         [query],
         normalize_embeddings=True
     ).tolist()
@@ -174,7 +180,9 @@ def hybrid_search(repo_id: str, query: str, k: int = 4) -> list[dict]:
 
     for doc_id in top_ids:
 
-        idx = id_to_idx[doc_id]
+        idx = id_to_idx.get(doc_id)
+        if idx is None:
+            continue
 
         results.append({
             "text": all_docs[idx],
