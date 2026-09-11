@@ -1,0 +1,780 @@
+[
+  {
+    "id": "q001",
+    "repo": "codelens",
+    "query_type": "symbol_lookup",
+    "query": "Where is hybrid retrieval implemented?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search"
+        }
+      ],
+      "acceptable_files": [
+        "backend/tools/search_tool.py"
+      ]
+    },
+    "reference_answer": "hybrid_search is implemented in backend/tools/search_tool.py. It fetches documents from ChromaDB, scores them with an in-memory BM25Okapi instance, generates a query embedding for vector search, and combines the rankings using Reciprocal Rank Fusion (RRF)."
+  },
+  {
+    "id": "q002",
+    "repo": "codelens",
+    "query_type": "symbol_lookup",
+    "query": "Where is the function that parses GitHub repository URLs into owner and repository name?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/indexer/cloner.py",
+          "symbol": "parse_github_url"
+        }
+      ],
+      "acceptable_files": [
+        "backend/indexer/cloner.py"
+      ]
+    },
+    "reference_answer": "parse_github_url is defined in backend/indexer/cloner.py. It uses a regular expression to extract the owner and repository name from GitHub URLs, handling trailing slashes and optional .git extensions."
+  },
+  {
+    "id": "q003",
+    "repo": "codelens",
+    "query_type": "symbol_lookup",
+    "query": "Which function splits Python files into AST function and class chunks?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file"
+        }
+      ],
+      "acceptable_files": [
+        "backend/indexer/chunker.py"
+      ]
+    },
+    "reference_answer": "chunk_python_file is located in backend/indexer/chunker.py. It parses Python source code using Python's built-in ast module, extracts functions, classes, and methods into individual chunks with line numbers, and creates fallback module chunks on syntax errors or when no functions/classes exist."
+  },
+  {
+    "id": "q004",
+    "repo": "codelens",
+    "query_type": "symbol_lookup",
+    "query": "Where is the function that initializes the SQLite database schema?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/core/db.py",
+          "symbol": "init_db"
+        }
+      ],
+      "acceptable_files": [
+        "backend/core/db.py"
+      ]
+    },
+    "reference_answer": "init_db in backend/core/db.py initializes the SQLite database by creating the repos table if it does not already exist."
+  },
+  {
+    "id": "q005",
+    "repo": "codelens",
+    "query_type": "symbol_lookup",
+    "query": "Where is the code tokenizer for BM25 search implemented?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/tools/search_tool.py",
+          "symbol": "tokenize"
+        }
+      ],
+      "acceptable_files": [
+        "backend/tools/search_tool.py"
+      ]
+    },
+    "reference_answer": "tokenize is defined in backend/tools/search_tool.py. It converts input text to lowercase, splits on non-alphanumeric characters, and splits snake_case tokens into individual constituent subwords."
+  },
+  {
+    "id": "q006",
+    "repo": "codelens",
+    "query_type": "symbol_lookup",
+    "query": "Which function parses repository dependencies and entrypoints to generate a structural map?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/indexer/repo_map.py",
+          "symbol": "build_repo_map"
+        }
+      ],
+      "acceptable_files": [
+        "backend/indexer/repo_map.py"
+      ]
+    },
+    "reference_answer": "build_repo_map is defined in backend/indexer/repo_map.py. It walks all Python files in the repository, constructs an AST symbol index, identifies entrypoints (__main__ and FastAPI apps), and parses dependencies from requirements.txt or pyproject.toml."
+  },
+  {
+    "id": "q007",
+    "repo": "codelens",
+    "query_type": "symbol_lookup",
+    "query": "Where is the fallback definition finder implemented when grep is not available?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "_find_definition_python"
+        }
+      ],
+      "acceptable_files": [
+        "backend/tools/structure_tool.py"
+      ]
+    },
+    "reference_answer": "_find_definition_python is located in backend/tools/structure_tool.py. It serves as a pure Python fallback for find_definition, walking directories and scanning .py files line by line for 'def <symbol>' or 'class <symbol>' patterns."
+  },
+  {
+    "id": "q008",
+    "repo": "codelens",
+    "query_type": "symbol_lookup",
+    "query": "Where is the ChromaDB collection creation and retrieval logic defined?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/core/vector_store.py",
+          "symbol": "get_collection"
+        }
+      ],
+      "acceptable_files": [
+        "backend/core/vector_store.py"
+      ]
+    },
+    "reference_answer": "get_collection in backend/core/vector_store.py gets or creates a persistent ChromaDB collection named 'repo_{repo_id}' using cosine distance as the HNSW space."
+  },
+  {
+    "id": "q009",
+    "repo": "codelens",
+    "query_type": "subsystem_flow",
+    "query": "How does a submitted repository get cloned, indexed, and embedded end-to-end?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "run_indexing"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py",
+        "backend/indexer/cloner.py",
+        "backend/indexer/chunker.py",
+        "backend/indexer/embedder.py"
+      ]
+    },
+    "reference_answer": "run_indexing in backend/main.py orchestrates the ingestion pipeline: it clones the repository shallowly via clone_repo, builds the structural repo map, filters Python files with get_python_files, chunks them using chunk_repo, embeds and stores chunks into ChromaDB via embed_chunks, and updates status in SQLite to 'ready'."
+  },
+  {
+    "id": "q010",
+    "repo": "codelens",
+    "query_type": "subsystem_flow",
+    "query": "How does CodeLens combine BM25 lexical ranking and dense vector similarity?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search"
+        }
+      ],
+      "acceptable_files": [
+        "backend/tools/search_tool.py"
+      ]
+    },
+    "reference_answer": "In backend/tools/search_tool.py, hybrid_search builds an in-memory BM25Okapi index over all repository chunks and scores query tokens, runs dense semantic vector search in ChromaDB using all-MiniLM-L6-v2 embeddings, and merges the two rankings using Reciprocal Rank Fusion (RRF) with constant K_RRF=60."
+  },
+  {
+    "id": "q011",
+    "repo": "codelens",
+    "query_type": "subsystem_flow",
+    "query": "How does query analysis expand user queries before retrieval?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query"
+        }
+      ],
+      "acceptable_files": [
+        "backend/agents/query_analyzer.py"
+      ]
+    },
+    "reference_answer": "analyze_query in backend/agents/query_analyzer.py checks user queries for domain keywords (index, search, api, architecture, bug) and appends pre-configured conceptual expansion text blocks to produce an enriched multi-line retrieval query."
+  },
+  {
+    "id": "q012",
+    "repo": "codelens",
+    "query_type": "subsystem_flow",
+    "query": "How does the system format retrieved code chunks before injecting them into the LLM prompt?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/agents/responder.py",
+          "symbol": "format_context"
+        }
+      ],
+      "acceptable_files": [
+        "backend/agents/responder.py"
+      ]
+    },
+    "reference_answer": "format_context in backend/agents/responder.py takes up to 3 chunks (MAX_CHUNKS), truncates each chunk to 600 characters (MAX_CHARS_PER_CHUNK), and formats each into a numbered section with file path, symbol name, and code snippet."
+  },
+  {
+    "id": "q013",
+    "repo": "codelens",
+    "query_type": "subsystem_flow",
+    "query": "How are code chunks batch-embedded and stored into ChromaDB during indexing?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks"
+        }
+      ],
+      "acceptable_files": [
+        "backend/indexer/embedder.py"
+      ]
+    },
+    "reference_answer": "embed_chunks in backend/indexer/embedder.py processes chunks in batches of 50, generates normalized dense embeddings using SentenceTransformer('all-MiniLM-L6-v2'), assigns IDs formatted as '{repo_id}_{index}', adds them to the ChromaDB collection, and invokes a progress callback every 100 stored chunks."
+  },
+  {
+    "id": "q014",
+    "repo": "codelens",
+    "query_type": "subsystem_flow",
+    "query": "How does file discovery filter out non-code files and ignore directories during repository scanning?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files"
+        }
+      ],
+      "acceptable_files": [
+        "backend/indexer/cloner.py"
+      ]
+    },
+    "reference_answer": "get_python_files in backend/indexer/cloner.py walks the repository directory tree, skips directories like __pycache__, .git, node_modules, venv, and migrations, ignores test files starting with 'test_' or ending with '_test.py', and returns up to max_files absolute paths."
+  },
+  {
+    "id": "q015",
+    "repo": "codelens",
+    "query_type": "subsystem_flow",
+    "query": "How are entire repositories chunked across multiple files?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_repo"
+        }
+      ],
+      "acceptable_files": [
+        "backend/indexer/chunker.py"
+      ]
+    },
+    "reference_answer": "chunk_repo in backend/indexer/chunker.py iterates across all discovered Python file paths, calls chunk_python_file on each file, and aggregates all extracted function, method, class, and fallback module chunks into a single list."
+  },
+  {
+    "id": "q016",
+    "repo": "codelens",
+    "query_type": "subsystem_flow",
+    "query": "How does the repository report generator build prompt context and invoke the LLM?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report"
+        }
+      ],
+      "acceptable_files": [
+        "backend/agents/report_generator.py"
+      ]
+    },
+    "reference_answer": "generate_report in backend/agents/report_generator.py formats up to 25 retrieved chunks with up to 1500 characters each into a context block, constructs a 10-section report prompt, and calls call_llm with a strict evidence-only system prompt."
+  },
+  {
+    "id": "q017",
+    "repo": "codelens",
+    "query_type": "api_routes",
+    "query": "Which endpoint receives a repository URL to start the background indexing task?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "submit_repo"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py"
+      ]
+    },
+    "reference_answer": "submit_repo at POST /api/repos/ in backend/main.py validates the GitHub URL, creates a repository entry in SQLite with status 'pending', enqueues run_indexing as a FastAPI background task, and returns HTTP 202."
+  },
+  {
+    "id": "q018",
+    "repo": "codelens",
+    "query_type": "api_routes",
+    "query": "Which endpoint handles user chat queries and returns answers with source citations?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "chat"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py"
+      ]
+    },
+    "reference_answer": "chat at POST /api/chat in backend/main.py verifies the repo is 'ready', calls analyze_query, retrieves context via retrieve_context, generates an answer using generate_answer, and returns the answer alongside the top 5 source file and symbol citations."
+  },
+  {
+    "id": "q019",
+    "repo": "codelens",
+    "query_type": "api_routes",
+    "query": "Which endpoint returns the indexing progress and metadata for a specific repository?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "repo_status"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py"
+      ]
+    },
+    "reference_answer": "repo_status at GET /api/repos/{repo_id}/status in backend/main.py queries SQLite using get_repo and returns repository metadata (status, file_count, chunk_count) or raises HTTP 404 if not found."
+  },
+  {
+    "id": "q020",
+    "repo": "codelens",
+    "query_type": "api_routes",
+    "query": "Which endpoint lists all indexed repositories?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "list_repos"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py"
+      ]
+    },
+    "reference_answer": "list_repos at GET /api/repos/ in backend/main.py fetches all repository records ordered by created_at descending from SQLite using get_all_repos."
+  },
+  {
+    "id": "q021",
+    "repo": "codelens",
+    "query_type": "api_routes",
+    "query": "Which endpoint returns the browsable file tree of a cloned repository?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "get_repo_files"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py"
+      ]
+    },
+    "reference_answer": "get_repo_files at GET /api/repos/{repo_id}/files in backend/main.py traverses the local cloned repo directory, filters out hidden directories, cache folders, and media/binary extensions, and returns a sorted list of relative file paths."
+  },
+  {
+    "id": "q022",
+    "repo": "codelens",
+    "query_type": "api_routes",
+    "query": "Which endpoint deletes a repository, its local disk clone, vector collection, and database record?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "delete_repo"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py"
+      ]
+    },
+    "reference_answer": "delete_repo at DELETE /api/repos/{repo_id} in backend/main.py removes the local directory on disk via shutil.rmtree, deletes the ChromaDB collection using delete_collection, and removes the SQLite record using delete_repo_db."
+  },
+  {
+    "id": "q023",
+    "repo": "codelens",
+    "query_type": "api_routes",
+    "query": "Which endpoint generates an architecture report for a repository?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py"
+      ]
+    },
+    "reference_answer": "generate_repo_report at POST /api/report in backend/main.py analyzes the query for architecture overview, retrieves context chunks in 'report' mode, calls generate_report, and returns the generated report."
+  },
+  {
+    "id": "q024",
+    "repo": "codelens",
+    "query_type": "api_routes",
+    "query": "Which endpoint serves as the application health check?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "health"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py"
+      ]
+    },
+    "reference_answer": "health at GET /health in backend/main.py returns a simple status JSON {'status': 'ok'}."
+  },
+  {
+    "id": "q025",
+    "repo": "codelens",
+    "query_type": "configuration",
+    "query": "Where are the default LLM provider and model configured?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/core/config.py",
+          "symbol": "Settings"
+        }
+      ],
+      "acceptable_files": [
+        "backend/core/config.py"
+      ]
+    },
+    "reference_answer": "In backend/core/config.py, the Settings class defines llm_provider defaulting to 'nvidia', llm_model defaulting to 'deepseek-ai/deepseek-v4-flash', and groq_model defaulting to 'openai/gpt-oss-120b'."
+  },
+  {
+    "id": "q026",
+    "repo": "codelens",
+    "query_type": "configuration",
+    "query": "Where are the storage paths for cloned repositories, ChromaDB vectors, and the SQLite database configured?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/core/config.py",
+          "symbol": "Settings"
+        }
+      ],
+      "acceptable_files": [
+        "backend/core/config.py"
+      ]
+    },
+    "reference_answer": "backend/core/config.py defines repo_storage_path (defaulting to '/tmp/codelens/repos'), chroma_persist_path (defaulting to '/tmp/codelens/chroma'), and sqlite_db_path (defaulting to '/tmp/codelens/jobs.db') within the Settings class."
+  },
+  {
+    "id": "q027",
+    "repo": "codelens",
+    "query_type": "configuration",
+    "query": "Where is the maximum number of files to index per repository defined?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/core/config.py",
+          "symbol": "Settings"
+        }
+      ],
+      "acceptable_files": [
+        "backend/core/config.py"
+      ]
+    },
+    "reference_answer": "max_files_per_repo is configured as an attribute of the Settings class in backend/core/config.py with a default value of 200."
+  },
+  {
+    "id": "q028",
+    "repo": "codelens",
+    "query_type": "configuration",
+    "query": "Where are the timeout and retry settings for LLM API calls defined?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/core/config.py",
+          "symbol": "Settings"
+        }
+      ],
+      "acceptable_files": [
+        "backend/core/config.py"
+      ]
+    },
+    "reference_answer": "llm_timeout_seconds (defaulting to 120.0 seconds) and llm_max_retries (defaulting to 0) are defined in backend/core/config.py under the Settings class."
+  },
+  {
+    "id": "q029",
+    "repo": "codelens",
+    "query_type": "configuration",
+    "query": "Which embedding model name is loaded by default for chunk and query vectorization?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/indexer/embedder.py",
+          "symbol": "get_model"
+        },
+        {
+          "file": "backend/tools/search_tool.py",
+          "symbol": "_get_embed_model"
+        }
+      ],
+      "acceptable_files": [
+        "backend/indexer/embedder.py",
+        "backend/tools/search_tool.py"
+      ]
+    },
+    "reference_answer": "'all-MiniLM-L6-v2' from sentence-transformers is loaded as the embedding model in both backend/indexer/embedder.py (in get_model) and backend/tools/search_tool.py (in _get_embed_model)."
+  },
+  {
+    "id": "q030",
+    "repo": "codelens",
+    "query_type": "configuration",
+    "query": "Where are startup directory creation and database initialization invoked?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "startup"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py"
+      ]
+    },
+    "reference_answer": "The startup event handler in backend/main.py creates repo_storage_path, chroma_persist_path, and the SQLite parent directory if they do not exist, and awaits init_db()."
+  },
+  {
+    "id": "q031",
+    "repo": "codelens",
+    "query_type": "cross_component",
+    "query": "How does a chat request coordinate query analysis, context retrieval, and answer generation?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "chat"
+        },
+        {
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context"
+        },
+        {
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py",
+        "backend/agents/retriever.py",
+        "backend/agents/responder.py"
+      ]
+    },
+    "reference_answer": "The chat handler in backend/main.py delegates query expansion to analyze_query, passes the expanded query to retrieve_context in backend/agents/retriever.py, and forwards the resulting chunks with the user query to generate_answer in backend/agents/responder.py."
+  },
+  {
+    "id": "q032",
+    "repo": "codelens",
+    "query_type": "cross_component",
+    "query": "How does retrieve_context connect the retriever agent to the underlying hybrid search tool and file system?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context"
+        },
+        {
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search"
+        }
+      ],
+      "acceptable_files": [
+        "backend/agents/retriever.py",
+        "backend/tools/search_tool.py",
+        "backend/tools/file_tool.py"
+      ]
+    },
+    "reference_answer": "retrieve_context in backend/agents/retriever.py calls hybrid_search in backend/tools/search_tool.py to fetch ranked chunks; if mode is 'review' and target_file is provided, it reads the file using read_file from backend/tools/file_tool.py and prepends it to the chunks."
+  },
+  {
+    "id": "q033",
+    "repo": "codelens",
+    "query_type": "cross_component",
+    "query": "How does the indexing pipeline update progress in the SQLite database during embedding?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "run_indexing"
+        },
+        {
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks"
+        },
+        {
+          "file": "backend/core/db.py",
+          "symbol": "update_repo_status"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py",
+        "backend/indexer/embedder.py",
+        "backend/core/db.py"
+      ]
+    },
+    "reference_answer": "run_indexing in backend/main.py defines an on_progress callback that calls update_repo_status via asyncio.run_coroutine_threadsafe; embed_chunks in backend/indexer/embedder.py invokes this callback every 100 chunks to write progress to the SQLite database."
+  },
+  {
+    "id": "q034",
+    "repo": "codelens",
+    "query_type": "cross_component",
+    "query": "How does responder generation construct prompts and dispatch them to the LLM client?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer"
+        },
+        {
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm"
+        }
+      ],
+      "acceptable_files": [
+        "backend/agents/responder.py",
+        "backend/core/llm.py"
+      ]
+    },
+    "reference_answer": "generate_answer in backend/agents/responder.py formats chunks into text sections with format_context, builds a user prompt containing the question and context, and calls call_llm in backend/core/llm.py with SYSTEM_PROMPT."
+  },
+  {
+    "id": "q035",
+    "repo": "codelens",
+    "query_type": "cross_component",
+    "query": "How does repository deletion coordinate cleanup across the filesystem, ChromaDB, and SQLite?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "delete_repo"
+        },
+        {
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection"
+        },
+        {
+          "file": "backend/core/db.py",
+          "symbol": "delete_repo_db"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py",
+        "backend/core/vector_store.py",
+        "backend/core/db.py"
+      ]
+    },
+    "reference_answer": "delete_repo in backend/main.py removes the local clone on disk using shutil.rmtree, deletes the ChromaDB vector collection via delete_collection in backend/core/vector_store.py, and deletes the SQLite record using delete_repo_db in backend/core/db.py."
+  },
+  {
+    "id": "q036",
+    "repo": "codelens",
+    "query_type": "cross_component",
+    "query": "How does the AST chunker link parsed functions and classes with file paths and line numbers?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file"
+        },
+        {
+          "file": "backend/tools/file_tool.py",
+          "symbol": "get_relative_path"
+        }
+      ],
+      "acceptable_files": [
+        "backend/indexer/chunker.py",
+        "backend/tools/file_tool.py"
+      ]
+    },
+    "reference_answer": "chunk_python_file in backend/indexer/chunker.py converts absolute file paths to relative paths using get_relative_path from backend/tools/file_tool.py, parses the file with ast.parse, and attaches relative file_path, symbol_name, start_line, and end_line to each chunk's metadata."
+  },
+  {
+    "id": "q037",
+    "repo": "codelens",
+    "query_type": "error_handling",
+    "query": "What fallback occurs when the primary NVIDIA LLM call fails?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm"
+        }
+      ],
+      "acceptable_files": [
+        "backend/core/llm.py"
+      ]
+    },
+    "reference_answer": "In backend/core/llm.py, if the primary NVIDIA API call fails, the exception block catches it, logs the failure, and retries the completion request using the Groq fallback client (_groq_fallback) with settings.groq_model."
+  },
+  {
+    "id": "q038",
+    "repo": "codelens",
+    "query_type": "error_handling",
+    "query": "How does the indexing pipeline handle repositories with no Python files or extraction failures?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/main.py",
+          "symbol": "run_indexing"
+        }
+      ],
+      "acceptable_files": [
+        "backend/main.py"
+      ]
+    },
+    "reference_answer": "In backend/main.py, run_indexing checks if python_files or chunks are empty; if so, it updates the repository status in SQLite to 'failed' with an error message ('No Python files found in this repo.' or 'Could not extract any code chunks.') and exits."
+  },
+  {
+    "id": "q039",
+    "repo": "codelens",
+    "query_type": "error_handling",
+    "query": "How does chunking handle syntax errors in malformed Python source files?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file"
+        }
+      ],
+      "acceptable_files": [
+        "backend/indexer/chunker.py"
+      ]
+    },
+    "reference_answer": "In backend/indexer/chunker.py, if ast.parse encounters a SyntaxError, the exception handler computes a SHA256 content hash, truncates text to 3000 characters if exceeded, and returns a single fallback chunk with chunk_type='module'."
+  },
+  {
+    "id": "q040",
+    "repo": "codelens",
+    "query_type": "error_handling",
+    "query": "How does symbol definition search fall back when the system grep command is unavailable?",
+    "ground_truth": {
+      "primary_symbols": [
+        {
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition"
+        },
+        {
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "_find_definition_python"
+        }
+      ],
+      "acceptable_files": [
+        "backend/tools/structure_tool.py"
+      ]
+    },
+    "reference_answer": "find_definition in backend/tools/structure_tool.py runs grep via subprocess.run; if FileNotFoundError is raised, it catches the exception and delegates to _find_definition_python, which scans Python files on disk using os.walk and pure Python string matching."
+  }
+]

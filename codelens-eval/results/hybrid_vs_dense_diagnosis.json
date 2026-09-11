@@ -1,0 +1,3844 @@
+{
+  "total_documents_in_collection": 41,
+  "summary_counts": {
+    "bm25_adds_new_relevant": 1,
+    "bm25_only_duplicates_or_no_new_rel": 39,
+    "bm25_causes_relevant_dense_down": 2,
+    "bm25_improves_rank": 1,
+    "bm25_worsens_rank": 2
+  },
+  "queries_with_mrr_difference": [
+    {
+      "question_id": "q008",
+      "category": "symbol_lookup",
+      "query": "Where is the ChromaDB collection creation and retrieval logic defined?",
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 2,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 0.5,
+      "mrr_delta": -0.5
+    },
+    {
+      "question_id": "q018",
+      "category": "api_routes",
+      "query": "Which endpoint handles user chat queries and returns answers with source citations?",
+      "dense_best_rank": 3,
+      "hybrid_best_rank": 2,
+      "dense_mrr": 0.3333,
+      "hybrid_mrr": 0.5,
+      "mrr_delta": 0.1667
+    },
+    {
+      "question_id": "q020",
+      "category": "api_routes",
+      "query": "Which endpoint lists all indexed repositories?",
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 2,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 0.5,
+      "mrr_delta": -0.5
+    }
+  ],
+  "per_query": [
+    {
+      "question_id": "q001",
+      "category": "symbol_lookup",
+      "query": "Where is hybrid retrieval implemented?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_38",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "distance": 0.4756,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.5386,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_16",
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "distance": 0.6046,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_16",
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "bm25_score": 5.2432,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_38",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "bm25_score": 5.164,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 5.0196,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "rrf_score": 0.0331,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0325,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q002",
+      "category": "symbol_lookup",
+      "query": "Where is the function that parses GitHub repository URLs into owner and repository name?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_29",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "parse_github_url",
+          "distance": 0.4093,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_30",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "distance": 0.5627,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_3",
+          "file": "backend/main.py",
+          "symbol": "submit_repo",
+          "distance": 0.5931,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_29",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "parse_github_url",
+          "bm25_score": 12.0851,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_19",
+          "file": "backend/core/db.py",
+          "symbol": "create_repo",
+          "bm25_score": 10.0507,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_3",
+          "file": "backend/main.py",
+          "symbol": "submit_repo",
+          "bm25_score": 8.4147,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/indexer/cloner.py",
+          "symbol": "parse_github_url",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "rrf_score": 0.0323,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/main.py",
+          "symbol": "submit_repo",
+          "rrf_score": 0.0323,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q003",
+      "category": "symbol_lookup",
+      "query": "Which function splits Python files into AST function and class chunks?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_27",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "distance": 0.4173,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_28",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_repo",
+          "distance": 0.4638,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_14",
+          "file": "backend/agents/responder.py",
+          "symbol": "format_context",
+          "distance": 0.5336,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_27",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "bm25_score": 11.6984,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_28",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_repo",
+          "bm25_score": 9.0958,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_31",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "bm25_score": 8.623,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_repo",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/responder.py",
+          "symbol": "format_context",
+          "rrf_score": 0.0296,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q004",
+      "category": "symbol_lookup",
+      "query": "Where is the function that initializes the SQLite database schema?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_18",
+          "file": "backend/core/db.py",
+          "symbol": "init_db",
+          "distance": 0.4315,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_1",
+          "file": "backend/main.py",
+          "symbol": "startup",
+          "distance": 0.5226,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_23",
+          "file": "backend/core/db.py",
+          "symbol": "delete_repo_db",
+          "distance": 0.624,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_30",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "bm25_score": 7.557,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_39",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition",
+          "bm25_score": 6.9508,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_26",
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection",
+          "bm25_score": 6.8036,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/core/db.py",
+          "symbol": "init_db",
+          "rrf_score": 0.0323,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/core/db.py",
+          "symbol": "delete_repo_db",
+          "rrf_score": 0.032,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/main.py",
+          "symbol": "startup",
+          "rrf_score": 0.0305,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q005",
+      "category": "symbol_lookup",
+      "query": "Where is the code tokenizer for BM25 search implemented?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_37",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "tokenize",
+          "distance": 0.6388,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_38",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "distance": 0.6543,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.6741,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_38",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "bm25_score": 8.4357,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_37",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "tokenize",
+          "bm25_score": 7.7147,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_30",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "bm25_score": 7.6,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/tools/search_tool.py",
+          "symbol": "tokenize",
+          "rrf_score": 0.0331,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "rrf_score": 0.0331,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0318,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q006",
+      "category": "symbol_lookup",
+      "query": "Which function parses repository dependencies and entrypoints to generate a structural map?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_13",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "distance": 0.7237,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_34",
+          "file": "backend/tools/file_tool.py",
+          "symbol": "get_relative_path",
+          "distance": 0.7535,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_35",
+          "file": "backend/tools/file_tool.py",
+          "symbol": "get_relative_path",
+          "distance": 0.7634,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_13",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "bm25_score": 8.4248,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_10",
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "bm25_score": 7.0436,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "bm25_score": 6.3784,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/tools/file_tool.py",
+          "symbol": "get_relative_path",
+          "rrf_score": 0.028,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/tools/file_tool.py",
+          "symbol": "get_relative_path",
+          "rrf_score": 0.0275,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": null,
+      "hybrid_best_rank": null,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.0,
+      "hybrid_mrr": 0.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q007",
+      "category": "symbol_lookup",
+      "query": "Where is the fallback definition finder implemented when grep is not available?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_39",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition",
+          "distance": 0.5247,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_40",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "_find_definition_python",
+          "distance": 0.677,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.7336,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_39",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition",
+          "bm25_score": 21.7884,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_26",
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection",
+          "bm25_score": 10.5159,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_30",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "bm25_score": 7.5347,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "_find_definition_python",
+          "rrf_score": 0.0323,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0272,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 2,
+      "hybrid_best_rank": 2,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.5,
+      "hybrid_mrr": 0.5,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q008",
+      "category": "symbol_lookup",
+      "query": "Where is the ChromaDB collection creation and retrieval logic defined?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_25",
+          "file": "backend/core/vector_store.py",
+          "symbol": "get_collection",
+          "distance": 0.5054,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.5921,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_26",
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection",
+          "distance": 0.6693,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_26",
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection",
+          "bm25_score": 8.1267,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_39",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition",
+          "bm25_score": 7.8451,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 6.9219,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/core/vector_store.py",
+          "symbol": "get_collection",
+          "rrf_score": 0.0325,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0325,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 2,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 0.5,
+      "mrr_delta": -0.5
+    },
+    {
+      "question_id": "q009",
+      "category": "subsystem_flow",
+      "query": "How does a submitted repository get cloned, indexed, and embedded end-to-end?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_2",
+          "file": "backend/main.py",
+          "symbol": "run_indexing",
+          "distance": 0.6301,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_30",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "distance": 0.6548,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_19",
+          "file": "backend/core/db.py",
+          "symbol": "create_repo",
+          "distance": 0.7013,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_27",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "bm25_score": 8.5791,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_36",
+          "file": "backend/tools/file_tool.py",
+          "symbol": "read_file",
+          "bm25_score": 6.4395,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_21",
+          "file": "backend/core/db.py",
+          "symbol": "update_repo_status",
+          "bm25_score": 5.6145,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/main.py",
+          "symbol": "run_indexing",
+          "rrf_score": 0.0321,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "rrf_score": 0.0305,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/core/db.py",
+          "symbol": "create_repo",
+          "rrf_score": 0.0282,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q010",
+      "category": "subsystem_flow",
+      "query": "How does CodeLens combine BM25 lexical ranking and dense vector similarity?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_38",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "distance": 0.5995,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.6871,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_16",
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "distance": 0.781,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 12.1365,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_38",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "bm25_score": 10.1349,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_17",
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "bm25_score": 4.3559,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "rrf_score": 0.0331,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0331,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "rrf_score": 0.0315,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q011",
+      "category": "subsystem_flow",
+      "query": "How does query analysis expand user queries before retrieval?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.4471,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_38",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "distance": 0.7,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_16",
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "distance": 0.7076,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 11.1113,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_10",
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "bm25_score": 9.4491,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_9",
+          "file": "backend/main.py",
+          "symbol": "chat",
+          "bm25_score": 5.203,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "rrf_score": 0.0318,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "rrf_score": 0.0318,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q012",
+      "category": "subsystem_flow",
+      "query": "How does the system format retrieved code chunks before injecting them into the LLM prompt?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_13",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "distance": 0.6319,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "distance": 0.661,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_14",
+          "file": "backend/agents/responder.py",
+          "symbol": "format_context",
+          "distance": 0.6985,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "bm25_score": 17.3861,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_13",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "bm25_score": 15.0019,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_24",
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "bm25_score": 11.7263,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "rrf_score": 0.0331,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "rrf_score": 0.0331,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/responder.py",
+          "symbol": "format_context",
+          "rrf_score": 0.0311,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        }
+      ],
+      "dense_best_rank": 3,
+      "hybrid_best_rank": 3,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.3333,
+      "hybrid_mrr": 0.3333,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q013",
+      "category": "subsystem_flow",
+      "query": "How are code chunks batch-embedded and stored into ChromaDB during indexing?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_33",
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks",
+          "distance": 0.4455,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.5931,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_16",
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "distance": 0.621,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_33",
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks",
+          "bm25_score": 17.1136,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 7.0397,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_25",
+          "file": "backend/core/vector_store.py",
+          "symbol": "get_collection",
+          "bm25_score": 6.7226,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "rrf_score": 0.0306,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q014",
+      "category": "subsystem_flow",
+      "query": "How does file discovery filter out non-code files and ignore directories during repository scanning?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_31",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "distance": 0.6512,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_6",
+          "file": "backend/main.py",
+          "symbol": "get_repo_files",
+          "distance": 0.6579,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_30",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "distance": 0.6797,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_6",
+          "file": "backend/main.py",
+          "symbol": "get_repo_files",
+          "bm25_score": 6.0928,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_31",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "bm25_score": 5.3915,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_7",
+          "file": "backend/main.py",
+          "symbol": "delete_repo",
+          "bm25_score": 5.3238,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "rrf_score": 0.0331,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/main.py",
+          "symbol": "get_repo_files",
+          "rrf_score": 0.0331,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "rrf_score": 0.0285,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q015",
+      "category": "subsystem_flow",
+      "query": "How are entire repositories chunked across multiple files?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_28",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_repo",
+          "distance": 0.3823,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_27",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "distance": 0.5877,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_16",
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "distance": 0.6048,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_25",
+          "file": "backend/core/vector_store.py",
+          "symbol": "get_collection",
+          "bm25_score": 3.8914,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_31",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "bm25_score": 2.6861,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_6",
+          "file": "backend/main.py",
+          "symbol": "get_repo_files",
+          "bm25_score": 2.5483,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_repo",
+          "rrf_score": 0.0323,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "rrf_score": 0.0318,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "rrf_score": 0.0282,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q016",
+      "category": "subsystem_flow",
+      "query": "How does the repository report generator build prompt context and invoke the LLM?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_13",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "distance": 0.4273,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_10",
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "distance": 0.659,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "distance": 0.666,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_13",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "bm25_score": 18.834,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "bm25_score": 11.7025,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_12",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "format_context",
+          "bm25_score": 8.349,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "rrf_score": 0.0325,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "rrf_score": 0.0323,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q017",
+      "category": "api_routes",
+      "query": "Which endpoint receives a repository URL to start the background indexing task?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_3",
+          "file": "backend/main.py",
+          "symbol": "submit_repo",
+          "distance": 0.5244,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_2",
+          "file": "backend/main.py",
+          "symbol": "run_indexing",
+          "distance": 0.6652,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_10",
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "distance": 0.6755,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_3",
+          "file": "backend/main.py",
+          "symbol": "submit_repo",
+          "bm25_score": 15.4556,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_2",
+          "file": "backend/main.py",
+          "symbol": "run_indexing",
+          "bm25_score": 7.1946,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_30",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "bm25_score": 6.7239,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/main.py",
+          "symbol": "submit_repo",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/main.py",
+          "symbol": "run_indexing",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "rrf_score": 0.0318,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q018",
+      "category": "api_routes",
+      "query": "Which endpoint handles user chat queries and returns answers with source citations?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.6401,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_8",
+          "file": "backend/main.py",
+          "symbol": "ChatRequest",
+          "distance": 0.6513,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_9",
+          "file": "backend/main.py",
+          "symbol": "chat",
+          "distance": 0.7042,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_27",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "bm25_score": 6.9713,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_24",
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "bm25_score": 5.0915,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 4.9968,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/main.py",
+          "symbol": "chat",
+          "rrf_score": 0.032,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/main.py",
+          "symbol": "ChatRequest",
+          "rrf_score": 0.0311,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "dense_best_rank": 3,
+      "hybrid_best_rank": 2,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.3333,
+      "hybrid_mrr": 0.5,
+      "mrr_delta": 0.1667
+    },
+    {
+      "question_id": "q019",
+      "category": "api_routes",
+      "query": "Which endpoint returns the indexing progress and metadata for a specific repository?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_13",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "distance": 0.6175,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_10",
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "distance": 0.6447,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_21",
+          "file": "backend/core/db.py",
+          "symbol": "update_repo_status",
+          "distance": 0.6652,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_33",
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks",
+          "bm25_score": 11.5546,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_25",
+          "file": "backend/core/vector_store.py",
+          "symbol": "get_collection",
+          "bm25_score": 7.5844,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 6.9529,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "rrf_score": 0.0321,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/core/db.py",
+          "symbol": "update_repo_status",
+          "rrf_score": 0.0311,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "rrf_score": 0.0282,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "dense_best_rank": null,
+      "hybrid_best_rank": null,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.0,
+      "hybrid_mrr": 0.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q020",
+      "category": "api_routes",
+      "query": "Which endpoint lists all indexed repositories?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_5",
+          "file": "backend/main.py",
+          "symbol": "list_repos",
+          "distance": 0.6352,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_22",
+          "file": "backend/core/db.py",
+          "symbol": "get_all_repos",
+          "distance": 0.6884,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_20",
+          "file": "backend/core/db.py",
+          "symbol": "get_repo",
+          "distance": 0.7197,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_21",
+          "file": "backend/core/db.py",
+          "symbol": "update_repo_status",
+          "bm25_score": 4.8253,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_18",
+          "file": "backend/core/db.py",
+          "symbol": "init_db",
+          "bm25_score": 2.9996,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_38",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "bm25_score": 2.7991,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/core/db.py",
+          "symbol": "get_all_repos",
+          "rrf_score": 0.032,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/main.py",
+          "symbol": "list_repos",
+          "rrf_score": 0.0316,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/core/db.py",
+          "symbol": "get_repo",
+          "rrf_score": 0.0276,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 2,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 0.5,
+      "mrr_delta": -0.5
+    },
+    {
+      "question_id": "q021",
+      "category": "api_routes",
+      "query": "Which endpoint returns the browsable file tree of a cloned repository?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_30",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "distance": 0.5388,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_36",
+          "file": "backend/tools/file_tool.py",
+          "symbol": "read_file",
+          "distance": 0.5432,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_31",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "distance": 0.5778,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_31",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "bm25_score": 9.4619,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_36",
+          "file": "backend/tools/file_tool.py",
+          "symbol": "read_file",
+          "bm25_score": 9.3337,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_27",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "bm25_score": 7.3962,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/tools/file_tool.py",
+          "symbol": "read_file",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "rrf_score": 0.0316,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": null,
+      "hybrid_best_rank": null,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.0,
+      "hybrid_mrr": 0.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q022",
+      "category": "api_routes",
+      "query": "Which endpoint deletes a repository, its local disk clone, vector collection, and database record?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_7",
+          "file": "backend/main.py",
+          "symbol": "delete_repo",
+          "distance": 0.5588,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_23",
+          "file": "backend/core/db.py",
+          "symbol": "delete_repo_db",
+          "distance": 0.5745,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_26",
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection",
+          "distance": 0.6356,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_25",
+          "file": "backend/core/vector_store.py",
+          "symbol": "get_collection",
+          "bm25_score": 11.1403,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_30",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "bm25_score": 10.9442,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 8.3432,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/main.py",
+          "symbol": "delete_repo",
+          "rrf_score": 0.0325,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection",
+          "rrf_score": 0.0318,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/core/db.py",
+          "symbol": "delete_repo_db",
+          "rrf_score": 0.0315,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q023",
+      "category": "api_routes",
+      "query": "Which endpoint generates an architecture report for a repository?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_13",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "distance": 0.4848,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_10",
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "distance": 0.6473,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "distance": 0.7897,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_13",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "bm25_score": 12.2846,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_10",
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "bm25_score": 7.9693,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_36",
+          "file": "backend/tools/file_tool.py",
+          "symbol": "read_file",
+          "bm25_score": 3.4407,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "rrf_score": 0.0311,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 2,
+      "hybrid_best_rank": 2,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.5,
+      "hybrid_mrr": 0.5,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q024",
+      "category": "api_routes",
+      "query": "Which endpoint serves as the application health check?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_24",
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "distance": 0.7981,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_13",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "distance": 0.8669,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_9",
+          "file": "backend/main.py",
+          "symbol": "chat",
+          "distance": 0.8816,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_36",
+          "file": "backend/tools/file_tool.py",
+          "symbol": "read_file",
+          "bm25_score": 2.3386,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_30",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "bm25_score": 2.0675,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_19",
+          "file": "backend/core/db.py",
+          "symbol": "create_repo",
+          "bm25_score": 1.8908,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "rrf_score": 0.0295,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/main.py",
+          "symbol": "chat",
+          "rrf_score": 0.0278,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "rrf_score": 0.0275,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": null,
+      "hybrid_best_rank": null,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.0,
+      "hybrid_mrr": 0.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q025",
+      "category": "configuration",
+      "query": "Where are the default LLM provider and model configured?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_24",
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "distance": 0.6776,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_17",
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "distance": 0.7636,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_32",
+          "file": "backend/indexer/embedder.py",
+          "symbol": "get_model",
+          "distance": 0.8237,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_24",
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "bm25_score": 12.997,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_17",
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "bm25_score": 8.6226,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_18",
+          "file": "backend/core/db.py",
+          "symbol": "init_db",
+          "bm25_score": 5.7482,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/indexer/embedder.py",
+          "symbol": "get_model",
+          "rrf_score": 0.0318,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 2,
+      "hybrid_best_rank": 2,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.5,
+      "hybrid_mrr": 0.5,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q026",
+      "category": "configuration",
+      "query": "Where are the storage paths for cloned repositories, ChromaDB vectors, and the SQLite database configured?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_1",
+          "file": "backend/main.py",
+          "symbol": "startup",
+          "distance": 0.4657,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_17",
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "distance": 0.6169,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_23",
+          "file": "backend/core/db.py",
+          "symbol": "delete_repo_db",
+          "distance": 0.6379,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_31",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "bm25_score": 9.8546,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 7.826,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_25",
+          "file": "backend/core/vector_store.py",
+          "symbol": "get_collection",
+          "bm25_score": 7.2366,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/main.py",
+          "symbol": "startup",
+          "rrf_score": 0.0312,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "rrf_score": 0.0311,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/core/db.py",
+          "symbol": "delete_repo_db",
+          "rrf_score": 0.0311,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 2,
+      "hybrid_best_rank": 2,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.5,
+      "hybrid_mrr": 0.5,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q027",
+      "category": "configuration",
+      "query": "Where is the maximum number of files to index per repository defined?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_2",
+          "file": "backend/main.py",
+          "symbol": "run_indexing",
+          "distance": 0.6023,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_6",
+          "file": "backend/main.py",
+          "symbol": "get_repo_files",
+          "distance": 0.6729,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_16",
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "distance": 0.6928,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_39",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition",
+          "bm25_score": 10.184,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_30",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "clone_repo",
+          "bm25_score": 7.0053,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_27",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "bm25_score": 6.8894,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/main.py",
+          "symbol": "run_indexing",
+          "rrf_score": 0.0323,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/main.py",
+          "symbol": "get_repo_files",
+          "rrf_score": 0.0299,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "rrf_score": 0.027,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": null,
+      "hybrid_best_rank": null,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.0,
+      "hybrid_mrr": 0.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q028",
+      "category": "configuration",
+      "query": "Where are the timeout and retry settings for LLM API calls defined?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_24",
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "distance": 0.5919,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_9",
+          "file": "backend/main.py",
+          "symbol": "chat",
+          "distance": 0.7004,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "distance": 0.7968,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_24",
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "bm25_score": 12.0598,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_17",
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "bm25_score": 11.276,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_39",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition",
+          "bm25_score": 7.8513,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/main.py",
+          "symbol": "chat",
+          "rrf_score": 0.032,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "rrf_score": 0.0315,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": null,
+      "hybrid_best_rank": null,
+      "bm25_new_relevant_in_top3": true,
+      "dense_mrr": 0.0,
+      "hybrid_mrr": 0.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q029",
+      "category": "configuration",
+      "query": "Which embedding model name is loaded by default for chunk and query vectorization?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_32",
+          "file": "backend/indexer/embedder.py",
+          "symbol": "get_model",
+          "distance": 0.615,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.6262,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_33",
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks",
+          "distance": 0.6297,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_32",
+          "file": "backend/indexer/embedder.py",
+          "symbol": "get_model",
+          "bm25_score": 16.3958,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 10.0883,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_18",
+          "file": "backend/core/db.py",
+          "symbol": "init_db",
+          "bm25_score": 7.5038,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/indexer/embedder.py",
+          "symbol": "get_model",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks",
+          "rrf_score": 0.032,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q030",
+      "category": "configuration",
+      "query": "Where are startup directory creation and database initialization invoked?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_1",
+          "file": "backend/main.py",
+          "symbol": "startup",
+          "distance": 0.4905,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_18",
+          "file": "backend/core/db.py",
+          "symbol": "init_db",
+          "distance": 0.7017,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_17",
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "distance": 0.831,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_1",
+          "file": "backend/main.py",
+          "symbol": "startup",
+          "bm25_score": 5.6364,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_25",
+          "file": "backend/core/vector_store.py",
+          "symbol": "get_collection",
+          "bm25_score": 3.8914,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 3.1817,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/main.py",
+          "symbol": "startup",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/core/db.py",
+          "symbol": "init_db",
+          "rrf_score": 0.0323,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "rrf_score": 0.0272,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q031",
+      "category": "cross_component",
+      "query": "How does a chat request coordinate query analysis, context retrieval, and answer generation?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.5199,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "distance": 0.6053,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_8",
+          "file": "backend/main.py",
+          "symbol": "ChatRequest",
+          "distance": 0.6656,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 13.7649,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_10",
+          "file": "backend/main.py",
+          "symbol": "generate_repo_report",
+          "bm25_score": 11.9652,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "bm25_score": 10.9561,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "rrf_score": 0.0325,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/main.py",
+          "symbol": "ChatRequest",
+          "rrf_score": 0.0315,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "dense_best_rank": 2,
+      "hybrid_best_rank": 2,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 0.5,
+      "hybrid_mrr": 0.5,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q032",
+      "category": "cross_component",
+      "query": "How does retrieve_context connect the retriever agent to the underlying hybrid search tool and file system?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_16",
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "distance": 0.5384,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_38",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "distance": 0.5529,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.6226,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_16",
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "bm25_score": 19.1239,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_9",
+          "file": "backend/main.py",
+          "symbol": "chat",
+          "bm25_score": 9.8142,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_38",
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "bm25_score": 9.2984,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/agents/retriever.py",
+          "symbol": "retrieve_context",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/tools/search_tool.py",
+          "symbol": "hybrid_search",
+          "rrf_score": 0.0325,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0318,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q033",
+      "category": "cross_component",
+      "query": "How does the indexing pipeline update progress in the SQLite database during embedding?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_33",
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks",
+          "distance": 0.5574,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_21",
+          "file": "backend/core/db.py",
+          "symbol": "update_repo_status",
+          "distance": 0.5684,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.5817,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 14.988,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_21",
+          "file": "backend/core/db.py",
+          "symbol": "update_repo_status",
+          "bm25_score": 12.0645,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_33",
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks",
+          "bm25_score": 10.0724,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/core/db.py",
+          "symbol": "update_repo_status",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q034",
+      "category": "cross_component",
+      "query": "How does responder generation construct prompts and dispatch them to the LLM client?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "distance": 0.6327,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_24",
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "distance": 0.6658,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_13",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "distance": 0.7009,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_24",
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "bm25_score": 8.9741,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "bm25_score": 7.2103,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_26",
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection",
+          "bm25_score": 4.9067,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "rrf_score": 0.0331,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "rrf_score": 0.0331,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/report_generator.py",
+          "symbol": "generate_report",
+          "rrf_score": 0.0296,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q035",
+      "category": "cross_component",
+      "query": "How does repository deletion coordinate cleanup across the filesystem, ChromaDB, and SQLite?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_23",
+          "file": "backend/core/db.py",
+          "symbol": "delete_repo_db",
+          "distance": 0.5007,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_26",
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection",
+          "distance": 0.5408,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_7",
+          "file": "backend/main.py",
+          "symbol": "delete_repo",
+          "distance": 0.5537,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "bm25_score": 6.2265,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_33",
+          "file": "backend/indexer/embedder.py",
+          "symbol": "embed_chunks",
+          "bm25_score": 5.3753,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_36",
+          "file": "backend/tools/file_tool.py",
+          "symbol": "read_file",
+          "bm25_score": 3.905,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/main.py",
+          "symbol": "delete_repo",
+          "rrf_score": 0.0315,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/core/db.py",
+          "symbol": "delete_repo_db",
+          "rrf_score": 0.0314,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection",
+          "rrf_score": 0.0301,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q036",
+      "category": "cross_component",
+      "query": "How does the AST chunker link parsed functions and classes with file paths and line numbers?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_27",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "distance": 0.5537,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_12",
+          "file": "backend/agents/report_generator.py",
+          "symbol": "format_context",
+          "distance": 0.6105,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_14",
+          "file": "backend/agents/responder.py",
+          "symbol": "format_context",
+          "distance": 0.614,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_27",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "bm25_score": 11.3549,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_31",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "bm25_score": 8.7434,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_40",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "_find_definition_python",
+          "bm25_score": 8.2721,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/agents/report_generator.py",
+          "symbol": "format_context",
+          "rrf_score": 0.0286,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/responder.py",
+          "symbol": "format_context",
+          "rrf_score": 0.0282,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q037",
+      "category": "error_handling",
+      "query": "What fallback occurs when the primary NVIDIA LLM call fails?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_24",
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "distance": 0.6817,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_17",
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "distance": 0.7454,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_20",
+          "file": "backend/core/db.py",
+          "symbol": "get_repo",
+          "distance": 0.8995,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_24",
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "bm25_score": 12.5117,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_17",
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "bm25_score": 7.6461,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_15",
+          "file": "backend/agents/responder.py",
+          "symbol": "generate_answer",
+          "bm25_score": 5.6829,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/core/llm.py",
+          "symbol": "call_llm",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/core/config.py",
+          "symbol": "Settings",
+          "rrf_score": 0.0328,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/core/db.py",
+          "symbol": "get_repo",
+          "rrf_score": 0.0272,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q038",
+      "category": "error_handling",
+      "query": "How does the indexing pipeline handle repositories with no Python files or extraction failures?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_2",
+          "file": "backend/main.py",
+          "symbol": "run_indexing",
+          "distance": 0.4859,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.5309,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_6",
+          "file": "backend/main.py",
+          "symbol": "get_repo_files",
+          "distance": 0.5569,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_2",
+          "file": "backend/main.py",
+          "symbol": "run_indexing",
+          "bm25_score": 10.4677,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_31",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "bm25_score": 8.4227,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_39",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition",
+          "bm25_score": 8.273,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/main.py",
+          "symbol": "run_indexing",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.032,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "file": "backend/main.py",
+          "symbol": "get_repo_files",
+          "rrf_score": 0.0302,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q039",
+      "category": "error_handling",
+      "query": "How does chunking handle syntax errors in malformed Python source files?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_27",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "distance": 0.4178,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_28",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_repo",
+          "distance": 0.4298,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_14",
+          "file": "backend/agents/responder.py",
+          "symbol": "format_context",
+          "distance": 0.5183,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_27",
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "bm25_score": 11.7019,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_2",
+          "file": "backend/main.py",
+          "symbol": "run_indexing",
+          "bm25_score": 7.856,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_31",
+          "file": "backend/indexer/cloner.py",
+          "symbol": "get_python_files",
+          "bm25_score": 6.9433,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_python_file",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/indexer/chunker.py",
+          "symbol": "chunk_repo",
+          "rrf_score": 0.032,
+          "is_symbol_hit": false,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/responder.py",
+          "symbol": "format_context",
+          "rrf_score": 0.0295,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "question_id": "q040",
+      "category": "error_handling",
+      "query": "How does symbol definition search fall back when the system grep command is unavailable?",
+      "top3_dense": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_39",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition",
+          "distance": 0.4257,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_40",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "_find_definition_python",
+          "distance": 0.6095,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_11",
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "distance": 0.6713,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "top3_bm25": [
+        {
+          "rank": 1,
+          "doc_id": "3ef3e55d_39",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition",
+          "bm25_score": 24.9299,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "doc_id": "3ef3e55d_26",
+          "file": "backend/core/vector_store.py",
+          "symbol": "delete_collection",
+          "bm25_score": 7.9562,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        },
+        {
+          "rank": 3,
+          "doc_id": "3ef3e55d_40",
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "_find_definition_python",
+          "bm25_score": 7.018,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        }
+      ],
+      "top3_hybrid": [
+        {
+          "rank": 1,
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "find_definition",
+          "rrf_score": 0.0333,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 2,
+          "file": "backend/tools/structure_tool.py",
+          "symbol": "_find_definition_python",
+          "rrf_score": 0.0325,
+          "is_symbol_hit": true,
+          "is_file_hit": true
+        },
+        {
+          "rank": 3,
+          "file": "backend/agents/query_analyzer.py",
+          "symbol": "analyze_query",
+          "rrf_score": 0.0306,
+          "is_symbol_hit": false,
+          "is_file_hit": false
+        }
+      ],
+      "dense_best_rank": 1,
+      "hybrid_best_rank": 1,
+      "bm25_new_relevant_in_top3": false,
+      "dense_mrr": 1.0,
+      "hybrid_mrr": 1.0,
+      "mrr_delta": 0.0
+    }
+  ]
+}

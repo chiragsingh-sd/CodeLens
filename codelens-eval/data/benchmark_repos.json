@@ -1,0 +1,23 @@
+{
+  "benchmark_version": "v1",
+  "description": "Ground truth repository metadata for CodeLens evaluation benchmark",
+  "repositories": [
+    {
+      "id": "codelens",
+      "name": "CodeLens",
+      "url": "https://github.com/chiragk1234singh-alt/CodeLens.git",
+      "local_path": ".",
+      "commit_sha": "f56a7ce7dbf9b17754ef603321fe4d59ba3971b8",
+      "indexed_repo_id": "3ef3e55d",
+      "purpose": "Initial retrieval and repository intelligence benchmark",
+      "indexing_configuration": {
+        "embedding_model": "all-MiniLM-L6-v2",
+        "embedding_dim": 384,
+        "similarity_metric": "cosine",
+        "chunking_strategy": "AST function/class/method parsing with module fallback",
+        "hybrid_retrieval": "BM25Okapi + ChromaDB vector search via RRF (K=60)",
+        "default_k": 3
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+question_id,category,query,dense_hit1,dense_hit3,dense_recall3,dense_prec3,dense_mrr,dense_lat_ms,hybrid_hit1,hybrid_hit3,hybrid_recall3,hybrid_prec3,hybrid_mrr,hybrid_lat_ms,mrr_delta
+q001,symbol_lookup,Where is hybrid retrieval implemented?,1.0,1.0,1.0,0.3333,1.0,41.61,1.0,1.0,1.0,0.3333,1.0,17.39,0.0
+q002,symbol_lookup,Where is the function that parses GitHub repository URLs into owner and repository name?,1.0,1.0,1.0,0.3333,1.0,13.37,1.0,1.0,1.0,0.3333,1.0,17.59,0.0
+q003,symbol_lookup,Which function splits Python files into AST function and class chunks?,1.0,1.0,1.0,0.3333,1.0,23.92,1.0,1.0,1.0,0.3333,1.0,40.91,0.0
+q004,symbol_lookup,Where is the function that initializes the SQLite database schema?,1.0,1.0,1.0,0.3333,1.0,21.53,1.0,1.0,1.0,0.3333,1.0,25.51,0.0
+q005,symbol_lookup,Where is the code tokenizer for BM25 search implemented?,1.0,1.0,1.0,0.3333,1.0,17.99,1.0,1.0,1.0,0.3333,1.0,24.88,0.0
+q006,symbol_lookup,Which function parses repository dependencies and entrypoints to generate a structural map?,0.0,0.0,0.0,0.0,0.0,19.06,0.0,0.0,0.0,0.0,0.0,23.53,0.0
+q007,symbol_lookup,Where is the fallback definition finder implemented when grep is not available?,0.0,1.0,1.0,0.3333,0.5,15.37,0.0,1.0,1.0,0.3333,0.5,21.53,0.0
+q008,symbol_lookup,Where is the ChromaDB collection creation and retrieval logic defined?,1.0,1.0,1.0,0.3333,1.0,13.52,0.0,1.0,1.0,0.3333,0.5,21.11,-0.5
+q009,subsystem_flow,"How does a submitted repository get cloned, indexed, and embedded end-to-end?",1.0,1.0,1.0,0.3333,1.0,16.17,1.0,1.0,1.0,0.3333,1.0,21.86,0.0
+q010,subsystem_flow,How does CodeLens combine BM25 lexical ranking and dense vector similarity?,1.0,1.0,1.0,0.3333,1.0,14.43,1.0,1.0,1.0,0.3333,1.0,21.41,0.0
+q011,subsystem_flow,How does query analysis expand user queries before retrieval?,1.0,1.0,1.0,0.3333,1.0,16.08,1.0,1.0,1.0,0.3333,1.0,26.17,0.0
+q012,subsystem_flow,How does the system format retrieved code chunks before injecting them into the LLM prompt?,0.0,1.0,1.0,0.3333,0.3333,16.54,0.0,1.0,1.0,0.3333,0.3333,20.34,0.0
+q013,subsystem_flow,How are code chunks batch-embedded and stored into ChromaDB during indexing?,1.0,1.0,1.0,0.3333,1.0,14.99,1.0,1.0,1.0,0.3333,1.0,24.49,0.0
+q014,subsystem_flow,How does file discovery filter out non-code files and ignore directories during repository scanning?,1.0,1.0,1.0,0.3333,1.0,17.5,1.0,1.0,1.0,0.3333,1.0,19.93,0.0
+q015,subsystem_flow,How are entire repositories chunked across multiple files?,1.0,1.0,1.0,0.3333,1.0,15.35,1.0,1.0,1.0,0.3333,1.0,21.47,0.0
+q016,subsystem_flow,How does the repository report generator build prompt context and invoke the LLM?,1.0,1.0,1.0,0.3333,1.0,15.15,1.0,1.0,1.0,0.3333,1.0,22.33,0.0
+q017,api_routes,Which endpoint receives a repository URL to start the background indexing task?,1.0,1.0,1.0,0.3333,1.0,15.69,1.0,1.0,1.0,0.3333,1.0,22.86,0.0
+q018,api_routes,Which endpoint handles user chat queries and returns answers with source citations?,0.0,1.0,1.0,0.3333,0.3333,16.04,0.0,1.0,1.0,0.3333,0.5,22.58,0.1667
+q019,api_routes,Which endpoint returns the indexing progress and metadata for a specific repository?,0.0,0.0,0.0,0.0,0.0,16.59,0.0,0.0,0.0,0.0,0.0,24.07,0.0
+q020,api_routes,Which endpoint lists all indexed repositories?,1.0,1.0,1.0,0.3333,1.0,17.89,0.0,1.0,1.0,0.3333,0.5,22.09,-0.5
+q021,api_routes,Which endpoint returns the browsable file tree of a cloned repository?,0.0,0.0,0.0,0.0,0.0,14.94,0.0,0.0,0.0,0.0,0.0,19.05,0.0
+q022,api_routes,"Which endpoint deletes a repository, its local disk clone, vector collection, and database record?",1.0,1.0,1.0,0.3333,1.0,16.71,1.0,1.0,1.0,0.3333,1.0,21.94,0.0
+q023,api_routes,Which endpoint generates an architecture report for a repository?,0.0,1.0,1.0,0.3333,0.5,13.93,0.0,1.0,1.0,0.3333,0.5,20.54,0.0
+q024,api_routes,Which endpoint serves as the application health check?,0.0,0.0,0.0,0.0,0.0,14.49,0.0,0.0,0.0,0.0,0.0,18.08,0.0
+q025,configuration,Where are the default LLM provider and model configured?,0.0,1.0,1.0,0.3333,0.5,14.21,0.0,1.0,1.0,0.3333,0.5,19.85,0.0
+q026,configuration,"Where are the storage paths for cloned repositories, ChromaDB vectors, and the SQLite database configured?",0.0,1.0,1.0,0.3333,0.5,16.68,0.0,1.0,1.0,0.3333,0.5,21.39,0.0
+q027,configuration,Where is the maximum number of files to index per repository defined?,0.0,0.0,0.0,0.0,0.0,14.11,0.0,0.0,0.0,0.0,0.0,22.22,0.0
+q028,configuration,Where are the timeout and retry settings for LLM API calls defined?,0.0,0.0,0.0,0.0,0.0,16.45,0.0,0.0,0.0,0.0,0.0,24.08,0.0
+q029,configuration,Which embedding model name is loaded by default for chunk and query vectorization?,1.0,1.0,0.5,0.3333,1.0,19.51,1.0,1.0,0.5,0.3333,1.0,22.48,0.0
+q030,configuration,Where are startup directory creation and database initialization invoked?,1.0,1.0,1.0,0.3333,1.0,15.29,1.0,1.0,1.0,0.3333,1.0,17.83,0.0
+q031,cross_component,"How does a chat request coordinate query analysis, context retrieval, and answer generation?",0.0,1.0,0.3333,0.3333,0.5,15.05,0.0,1.0,0.3333,0.3333,0.5,30.61,0.0
+q032,cross_component,How does retrieve_context connect the retriever agent to the underlying hybrid search tool and file system?,1.0,1.0,1.0,0.6667,1.0,21.13,1.0,1.0,1.0,0.6667,1.0,26.76,0.0
+q033,cross_component,How does the indexing pipeline update progress in the SQLite database during embedding?,1.0,1.0,0.6667,0.6667,1.0,21.7,1.0,1.0,0.6667,0.6667,1.0,31.69,0.0
+q034,cross_component,How does responder generation construct prompts and dispatch them to the LLM client?,1.0,1.0,1.0,0.6667,1.0,23.33,1.0,1.0,1.0,0.6667,1.0,21.21,0.0
+q035,cross_component,"How does repository deletion coordinate cleanup across the filesystem, ChromaDB, and SQLite?",1.0,1.0,1.0,1.0,1.0,18.42,1.0,1.0,1.0,1.0,1.0,25.73,0.0
+q036,cross_component,How does the AST chunker link parsed functions and classes with file paths and line numbers?,1.0,1.0,0.5,0.3333,1.0,20.03,1.0,1.0,0.5,0.3333,1.0,26.64,0.0
+q037,error_handling,What fallback occurs when the primary NVIDIA LLM call fails?,1.0,1.0,1.0,0.3333,1.0,18.83,1.0,1.0,1.0,0.3333,1.0,23.87,0.0
+q038,error_handling,How does the indexing pipeline handle repositories with no Python files or extraction failures?,1.0,1.0,1.0,0.3333,1.0,16.97,1.0,1.0,1.0,0.3333,1.0,22.47,0.0
+q039,error_handling,How does chunking handle syntax errors in malformed Python source files?,1.0,1.0,1.0,0.3333,1.0,15.85,1.0,1.0,1.0,0.3333,1.0,20.19,0.0
+q040,error_handling,How does symbol definition search fall back when the system grep command is unavailable?,1.0,1.0,1.0,0.6667,1.0,13.43,1.0,1.0,1.0,0.6667,1.0,19.75,0.0
