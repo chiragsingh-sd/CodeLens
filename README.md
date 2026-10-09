@@ -26,6 +26,13 @@ Live Demo
 Deployment is temporarily unavailable due to free-tier hosting limitations.
 </p>
 
+## Technical Loom Video
+
+<a href="https://www.youtube.com/watch?v=LArYMHVpwNw">
+  <img src="https://img.youtube.com/vi/LArYMHVpwNw/maxresdefault.jpg" width="100%" alt="CodeLens Demo Video">
+</a>
+
+
 # Overview
 CodeLens indexes a repository's Python source code into a searchable knowledge base and lets you interrogate it through three modes: conversational Q&A, per-file code review, and full architecture reporting. The agent retrieves relevant code chunks, decides whether it needs to read additional files, and generates grounded answers that cite specific files and line ranges.
 
